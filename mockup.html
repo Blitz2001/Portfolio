@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arunu Sampath - Designer & Developer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg: #050505;
+            --text-main: #ededed;
+            --text-muted: #737373;
+            --accent: #ffffff;
+            --card-bg: #111111;
+            --border: #262626;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Background */
+        .ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(circle at 60% -20%, rgba(255, 255, 255, 0.03), transparent 40%),
+                radial-gradient(circle at -10% 80%, rgba(255, 255, 255, 0.02), transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            top: 0;
+            width: 90%;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .menu a:hover {
+            opacity: 1;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 500;
+            line-height: 0.95;
+            margin: 0;
+            letter-spacing: -0.04em;
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out forwards 0.2s;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out forwards 0.4s;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 5%;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards 1s;
+        }
+
+        /* Work Section */
+        .work {
+            padding: 8rem 5%;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+        }
+
+        .card:hover {
+            transform: scale(0.98);
+            border-color: #404040;
+        }
+
+        .card-content {
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .card-tags {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient"></div>
+
+    <nav>
+        <div class="logo">Sampath.</div>
+        <div class="menu">
+            <a href="#">Work</a>
+            <a href="#">Info</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Building digital<br>experiences<br>that matter.</h1>
+        <p class="hero-desc">Arunu Sampath is a Software Engineer based in Sri Lanka, focusing on scalable applications
+            and interaction design.</p>
+        <div class="scroll-indicator">Scroll to explore</div>
+    </section>
+
+    <section class="work">
+        <div class="section-label">Selected Projects</div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">Ink Cat Marketplace</div>
+                    <div class="card-tags">
+                        <span>React</span> &bull; <span>Node.js</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">Gem Crawler</div>
+                    <div class="card-tags">
+                        <span>Python</span> &bull; <span>Data Analysis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">Portfolio '25</div>
+                    <div class="card-tags">
+                        <span>Design</span> &bull; <span>Development</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">System Architecture</div>
+                    <div class="card-tags">
+                        <span>Diagrams</span> &bull; <span>Planning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
