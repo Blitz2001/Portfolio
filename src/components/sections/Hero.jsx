@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
 import { heroData, contactData } from '../../data';
 // import heroCharacter3D from '../../assets/hero-character-3d.png';
-// import heroVideoLoop from '../../assets/0103.mp4';
-const heroVideoLoop = "https://res.cloudinary.com/dokj2l4fu/video/upload/v1704560000/placeholder_video.mp4"; // Placeholder until user uploads to Cloudinary
+import heroVideoLoop from '../../assets/0103.mp4';
+// const heroVideoLoop = "https://res.cloudinary.com/dokj2l4fu/video/upload/v1704560000/placeholder_video.mp4"; // Placeholder until user uploads to Cloudinary
 import { User, Briefcase, Code, Mail, ChevronLeft, ChevronRight } from 'lucide-react'; // Assuming lucide-react is installed, if not will use text or standard icons
 
 const Hero = () => {
