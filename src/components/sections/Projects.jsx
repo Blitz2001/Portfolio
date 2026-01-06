@@ -54,7 +54,7 @@ const Projects = () => {
             >
                 {projects.map((project, index) => {
                     const screenshotUrl = project.links.live
-                        ? `https://image.thum.io/get/width/1200/crop/800/noanimate/${project.links.live}`
+                        ? `https://api.microlink.io/?url=${encodeURIComponent(project.links.live)}&screenshot=true&meta=false&embed=screenshot.url`
                         : null;
 
                     return (
@@ -84,14 +84,24 @@ const Projects = () => {
                                                 src={screenshotUrl}
                                                 alt={project.title}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                onError={(e) => {
+                                                    e.target.style.display = 'none';
+                                                    e.target.nextSibling.style.display = 'flex';
+                                                }}
                                             />
-                                        ) : (
-                                            <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 p-8 text-center">
-                                                <Globe size={48} className="mb-4 opacity-50" />
-                                                <span className="font-bold text-2xl tracking-tight mb-2">No Live Preview</span>
-                                                <span className="text-sm font-mono opacity-70 uppercase tracking-widest">Code Only Project</span>
-                                            </div>
-                                        )}
+                                        ) : null}
+
+                                        {/* Fallback / No Image State (Hidden by default if image exists) */}
+                                        <div
+                                            className="w-full h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 p-8 text-center bg-gray-100 dark:bg-zinc-800"
+                                            style={{ display: screenshotUrl ? 'none' : 'flex' }}
+                                        >
+                                            <Globe size={48} className="mb-4 opacity-50" />
+                                            <span className="font-bold text-2xl tracking-tight mb-2">Preview Unavailable</span>
+                                            <span className="text-sm font-mono opacity-70 uppercase tracking-widest">
+                                                {project.links.live ? 'Live Link Active' : 'Code Only Project'}
+                                            </span>
+                                        </div>
                                     </motion.div>
 
                                     {/* Hover Overlay */}

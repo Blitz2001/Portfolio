@@ -89,6 +89,6 @@ export const aboutData = {
 
 export const contactData = {
     github: "https://github.com/Blitz2001",
-    linkedin: "https://linkedin.com/in/yourusername",
+    linkedin: "https://www.linkedin.com/in/arunu-sampath-6b10443a4",
     email: "arunu.1w@gmail.com",
 };
