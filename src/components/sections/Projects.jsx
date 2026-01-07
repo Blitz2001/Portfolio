@@ -1,31 +1,21 @@
 import React from 'react';
 import Section from '../ui/Section';
 import { heroData } from '../../data';
-import { ArrowUpRight, Github, Calendar, Trophy, Globe } from 'lucide-react';
+import { ArrowUpRight, Github, Calendar, Trophy, Globe, ArrowDown, Loader2 } from 'lucide-react';
 import { useGitHubProjects } from '../../hooks/useGitHubProjects';
 import { motion } from 'framer-motion';
 
 const Projects = () => {
-    const { projects, loading } = useGitHubProjects(heroData.githubUsername);
+    const { projects, loading, loadMore, hasMore, loadingMore } = useGitHubProjects(heroData.githubUsername);
 
-    if (loading) return null;
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.3 // Increased stagger for dramatic effect
-            }
-        }
-    };
+    if (loading && projects.length === 0) return null;
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 50 },
+        hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
+            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
         }
     };
 
@@ -45,20 +35,21 @@ const Projects = () => {
                 Selected Works
             </h2>
 
-            <motion.div
-                className="flex flex-col gap-32"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-10%" }}
-            >
+            <div className="flex flex-col gap-32">
                 {projects.map((project, index) => {
                     const screenshotUrl = project.links.live
                         ? `https://api.microlink.io/?url=${encodeURIComponent(project.links.live)}&screenshot=true&meta=false&embed=screenshot.url`
                         : null;
 
                     return (
-                        <motion.div key={index} variants={itemVariants} className="flex flex-col gap-6">
+                        <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-10%" }}
+                            className="flex flex-col gap-6"
+                        >
 
                             {/* Header */}
                             <div>
@@ -91,7 +82,7 @@ const Projects = () => {
                                             />
                                         ) : null}
 
-                                        {/* Fallback / No Image State (Hidden by default if image exists) */}
+                                        {/* Fallback / No Image State */}
                                         <div
                                             className="w-full h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-600 p-8 text-center bg-gray-100 dark:bg-zinc-800"
                                             style={{ display: screenshotUrl ? 'none' : 'flex' }}
@@ -186,7 +177,32 @@ const Projects = () => {
                         </motion.div>
                     );
                 })}
-            </motion.div>
+            </div>
+
+            {/* Load More Button */}
+            {hasMore && (
+                <div className="flex justify-center mt-20">
+                    <button
+                        onClick={loadMore}
+                        disabled={loadingMore}
+                        className="group relative px-8 py-3 bg-gray-900 dark:bg-white text-white dark:text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 disabled:opacity-70 disabled:hover:scale-100"
+                    >
+                        <span className="relative flex items-center gap-2 z-10">
+                            {loadingMore ? (
+                                <>
+                                    <Loader2 size={20} className="animate-spin" />
+                                    Loading...
+                                </>
+                            ) : (
+                                <>
+                                    Load More Projects
+                                    <ArrowDown size={20} className="group-hover:translate-y-1 transition-transform" />
+                                </>
+                            )}
+                        </span>
+                    </button>
+                </div>
+            )}
         </Section>
     );
 };
