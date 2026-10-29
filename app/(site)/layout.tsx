@@ -1,3 +1,4 @@
+import { RefTracker } from "@/components/RefTracker";
 import { SiteNav } from "@/components/SiteNav";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -5,6 +6,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <>
       <SiteNav />
       <main>{children}</main>
+      <RefTracker />
     </>
   );
 }
