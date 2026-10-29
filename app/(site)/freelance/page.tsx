@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Contact } from "@/components/Contact";
 import { Shot } from "@/components/Shot";
+import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
+import { getProjects } from "@/lib/projects";
 import { freelance, site } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -9,7 +11,8 @@ export const metadata: Metadata = {
   description: "Flutter apps, React admin panels, WordPress with payments and POS systems for small businesses.",
 };
 
-export default function Freelance() {
+export default async function Freelance() {
+  const projects = await getProjects("freelance");
   return (
     <>
       <section className="frame pt-10 pb-20 md:pt-28 md:pb-32">
@@ -36,11 +39,15 @@ export default function Freelance() {
 
       <section className="frame section-gap">
         <h2 className="mb-10 text-section md:mb-18">Client work</h2>
-        {freelance.work.map((w) => (
-          <WorkRow key={w.title} title={w.title} body={w.text} meta={w.meta}>
-            <Shot label={w.image} />
-          </WorkRow>
-        ))}
+        {projects?.length ? (
+          <ProjectRows projects={projects} />
+        ) : (
+          freelance.work.map((w) => (
+            <WorkRow key={w.title} title={w.title} body={w.text} meta={w.meta}>
+              <Shot label={w.image} />
+            </WorkRow>
+          ))
+        )}
       </section>
 
       <section className="frame section-gap">

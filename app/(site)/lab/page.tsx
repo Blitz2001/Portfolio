@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { Shot } from "@/components/Shot";
+import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
+import { getProjects } from "@/lib/projects";
 import { lab } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -12,7 +14,8 @@ export const metadata: Metadata = {
 
 const label = (slug: string) => slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-export default function Lab() {
+export default async function Lab() {
+  const projects = await getProjects("lab");
   return (
     <>
       <section className="frame pt-10 pb-20 md:pt-28 md:pb-32">
@@ -58,11 +61,15 @@ export default function Lab() {
 
       <section className="frame section-gap">
         <h2 className="mb-10 text-section md:mb-18">Side projects</h2>
-        {lab.projects.map((p) => (
-          <WorkRow key={p.title} title={p.title} body={p.text} meta={p.meta} link={p.link}>
-            <Shot label={`[Screenshot: ${p.title}]`} />
-          </WorkRow>
-        ))}
+        {projects?.length ? (
+          <ProjectRows projects={projects} />
+        ) : (
+          lab.projects.map((p) => (
+            <WorkRow key={p.title} title={p.title} body={p.text} meta={p.meta} link={p.link}>
+              <Shot label={`[Screenshot: ${p.title}]`} />
+            </WorkRow>
+          ))
+        )}
       </section>
 
       <Contact title="Want to make something odd together?" />

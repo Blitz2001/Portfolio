@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk } from "next/font/google";
-import { SiteNav } from "@/components/SiteNav";
 import "./globals.css";
 
 const schibsted = Schibsted_Grotesk({
@@ -20,10 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={schibsted.variable}>
-      <body>
-        <SiteNav />
-        <main>{children}</main>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -2,10 +2,13 @@ import { Contact } from "@/components/Contact";
 import { DataTable } from "@/components/DataTable";
 import { Pipeline } from "@/components/Pipeline";
 import { StarSchema } from "@/components/StarSchema";
+import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
+import { getProjects } from "@/lib/projects";
 import { about, bank, hero, redteam, warehouse } from "@/lib/content";
 
-export default function HireMe() {
+export default async function HireMe() {
+  const extra = await getProjects("hire");
   return (
     <>
       <section className="frame pt-10 pb-20 md:pt-28 md:pb-40">
@@ -30,6 +33,7 @@ export default function HireMe() {
         <WorkRow {...bank}>
           <DataTable {...bank} />
         </WorkRow>
+        {extra && <ProjectRows projects={extra} />}
       </section>
 
       <section className="frame section-gap">

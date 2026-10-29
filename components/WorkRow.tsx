@@ -3,12 +3,14 @@ export function WorkRow({
   body,
   meta,
   link,
+  live,
   children,
 }: {
   title: string;
   body: string;
   meta: string;
   link?: string;
+  live?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -18,11 +20,19 @@ export function WorkRow({
         <p>{body}</p>
         <p className="mt-4 text-[0.9375rem] text-cobalt-soft">
           {meta}
-          {link && (
+          {link && link !== "#" && (
             <>
-              {" · "}
+              {meta && " · "}
               <a href={link} className="ink-link">
                 Code
+              </a>
+            </>
+          )}
+          {live && (
+            <>
+              {" · "}
+              <a href={live} className="ink-link">
+                Live
               </a>
             </>
           )}
