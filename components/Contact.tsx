@@ -4,8 +4,10 @@ import { FitName } from "./FitName";
 export function Contact({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
     <section id="contact" className="frame section-gap overflow-hidden bg-cobalt text-sand">
-      <h2 className="mb-10 max-w-[16ch] text-section md:mb-18">{title}</h2>
-      <ul className="flex flex-wrap items-center gap-x-10 gap-y-4 text-xl">
+      <h2 data-reveal className="mb-10 max-w-[20ch] text-section md:mb-18">
+        {title}
+      </h2>
+      <ul data-reveal style={{ "--i": 1 } as React.CSSProperties} className="flex flex-wrap items-center gap-x-10 gap-y-4 text-lead">
         <li>
           <a href={`mailto:${site.email}`} className="ink-link">
             {site.email}

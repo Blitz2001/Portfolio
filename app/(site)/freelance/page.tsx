@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Contact } from "@/components/Contact";
+import { Hero } from "@/components/Hero";
 import { Shot } from "@/components/Shot";
 import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
@@ -15,18 +16,10 @@ export default async function Freelance() {
   const projects = await getProjects("freelance");
   return (
     <>
-      <section className="frame pt-10 pb-20 md:pt-28 md:pb-32">
-        <div className="grid items-end gap-x-16 md:grid-cols-[7fr_5fr]">
-          <h1 className="text-display md:row-span-2">{freelance.title}</h1>
-          <p className="mt-8 max-w-[44ch] text-lead leading-[1.45] md:mt-0">{freelance.lead}</p>
-          <a href={site.fiverr} className="btn mt-8 justify-self-start">
-            Hire me on Fiverr
-          </a>
-        </div>
-      </section>
+      <Hero title={freelance.title} lead={freelance.lead} action={{ href: site.fiverr, label: "Hire me on Fiverr" }} />
 
       <section className="frame section-gap bg-sand-2">
-        <h2 className="mb-10 text-section md:mb-18">What I build</h2>
+        <h2 data-reveal className="mb-10 text-section md:mb-18">What I build</h2>
         <dl className="grid gap-x-16 gap-y-10 md:grid-cols-2">
           {freelance.services.map((s) => (
             <div key={s.name}>
@@ -38,7 +31,7 @@ export default async function Freelance() {
       </section>
 
       <section className="frame section-gap">
-        <h2 className="mb-10 text-section md:mb-18">Client work</h2>
+        <h2 data-reveal className="mb-10 text-section md:mb-18">Client work</h2>
         {projects?.length ? (
           <ProjectRows projects={projects} />
         ) : (

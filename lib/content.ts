@@ -115,7 +115,7 @@ export const bank = {
 };
 
 export const about = {
-  lead: "BSc (Hons) in Information Technology, specialising in Data Science, at SLIIT. Expected 2027, GPA 3.54. Based in Colombo.",
+  lead: "BSc (Hons) in IT, specialising in Data Science, at SLIIT. Graduating 2027 with a GPA of 3.54. Based in Colombo.",
   skills: [
     { group: "Machine learning", items: "Python, pandas, scikit-learn, XGBoost, model evaluation" },
     { group: "NLP and agents", items: "spaCy, A2A, Ollama, Qwen2.5, entity and relation extraction, red-teaming" },
@@ -125,7 +125,7 @@ export const about = {
 };
 
 export const freelance = {
-  title: "Apps and websites for small businesses.",
+  title: "Apps for small businesses.",
   lead: "I design and build the whole thing: the app your customers use, the admin panel you run it from, and the payments in between.",
   services: [
     { name: "Mobile apps", text: "Flutter apps for Android and iOS, backed by Supabase." },
@@ -161,7 +161,7 @@ export const freelance = {
 };
 
 export const lab = {
-  title: "Things I make when nobody asks.",
+  title: "Made when nobody asked.",
   lead: "Logos and brand work, 3D experiments in the browser, and the side projects where I learned to build full stack.",
   logos: [
     "aydin-murphy",

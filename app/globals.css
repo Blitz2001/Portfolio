@@ -5,9 +5,9 @@
   --color-sand: #e6dbc7;
   --color-sand-2: #ddd0b9;
   --color-cobalt: #062b8a;
-  --color-cobalt-soft: #3a5aa8;
+  --color-cobalt-soft: #30509f;
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
-  --text-display: clamp(3.25rem, 1rem + 8vw, 9rem);
+  --text-display: clamp(2.125rem, 0.5rem + 6.9vw, 8rem);
   --text-section: clamp(2.5rem, 1.3rem + 4vw, 5rem);
   --text-title: clamp(1.75rem, 1rem + 2vw, 2.75rem);
   --text-lead: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
@@ -42,7 +42,7 @@
 }
 
 @utility btn {
-  @apply inline-block rounded-full bg-cobalt px-6 py-3.5 text-base font-semibold text-sand no-underline transition-transform duration-150 ease-out hover:-translate-y-0.5 active:scale-[0.97];
+  @apply inline-block rounded-full bg-cobalt px-6 py-3.5 text-[0.9375rem] font-semibold text-sand no-underline transition-transform duration-150 ease-out hover:-translate-y-0.5 active:scale-[0.97];
 }
 
 @utility btn-inverse {
@@ -53,11 +53,40 @@
   @apply underline decoration-2 underline-offset-[6px] transition-[text-decoration-color] hover:decoration-transparent;
 }
 
+/* Entrances: each part of a section rises in turn. Hidden only once the script has run, so a page
+   without JavaScript is never blank. */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal-ready [data-reveal]:not([data-shown]) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.reveal-ready [data-reveal] {
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+  /* Keep feedback (colour, opacity) but drop travel. */
+  .reveal-ready [data-reveal]:not([data-shown]) {
+    transform: none;
   }
+  .btn,
+  [data-ui] button {
+    transition-property: background-color, color;
+  }
+  .btn:hover,
+  .btn:active,
+  [data-ui] button:hover,
+  [data-ui] button:active {
+    transform: none;
+  }
+}
+
+/* On the cobalt section the focus ring turns sand so it stays visible. */
+.bg-cobalt :focus-visible {
+  outline-color: var(--color-sand);
 }
