@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Cobalt on sand: one ink does everything. */
+@theme {
+  --color-sand: #e6dbc7;
+  --color-sand-2: #ddd0b9;
+  --color-cobalt: #062b8a;
+  --color-cobalt-soft: #3a5aa8;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --text-display: clamp(3.25rem, 1rem + 8vw, 9rem);
+  --text-section: clamp(2.5rem, 1.3rem + 4vw, 5rem);
+  --text-title: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+  --text-lead: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-sand text-cobalt font-sans text-lg leading-[1.55] tracking-[-0.01em] antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-extrabold tracking-[-0.05em] leading-[0.9];
+  }
+  ::selection {
+    @apply bg-cobalt text-sand;
+  }
+  :focus-visible {
+    @apply outline-[3px] outline-offset-[3px] outline-cobalt;
+  }
+}
+
+@utility frame {
+  padding-inline: clamp(16px, 2.6vw, 40px);
+}
+
+@utility section-gap {
+  padding-block: clamp(80px, 10vw, 160px);
+}
+
+@utility btn {
+  @apply inline-block rounded-full bg-cobalt px-6 py-3.5 text-base font-semibold text-sand no-underline transition-transform duration-150 ease-out hover:-translate-y-0.5 active:scale-[0.97];
+}
+
+@utility btn-inverse {
+  @apply bg-sand text-cobalt;
+}
+
+@utility ink-link {
+  @apply underline decoration-2 underline-offset-[6px] transition-[text-decoration-color] hover:decoration-transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
