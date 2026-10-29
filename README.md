@@ -15,4 +15,9 @@ npm install
 npm run dev
 ```
 
-Copy lives in `lib/content.ts`. Open placeholders are listed in `PLACEHOLDERS.md`.
+Copy lives in `lib/content.ts`; open placeholders are listed in `PLACEHOLDERS.md`.
+
+- **Projects:** Sanity Studio at `/studio` (schema in `sanity/schemaTypes`). Without Sanity env vars the pages use `lib/content.ts`.
+- **Fig 1:** `node figures/defenseosint/build.mjs` regenerates the DefenseOSINT figure (see `figures/defenseosint/README.md`).
+- **Tracking links:** `/?ref=company` is logged to Postgres; `/admin` lists visits (Basic auth, `ADMIN_PASSWORD`).
+- **Launch:** `DEPLOY.md`. Environment variables: `.env.example`.
