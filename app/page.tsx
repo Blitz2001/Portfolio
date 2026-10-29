@@ -1,9 +1,9 @@
 import { Contact } from "@/components/Contact";
-import { ModelTable } from "@/components/ModelTable";
+import { DataTable } from "@/components/DataTable";
 import { Pipeline } from "@/components/Pipeline";
 import { StarSchema } from "@/components/StarSchema";
 import { WorkRow } from "@/components/WorkRow";
-import { about, bank, hero, warehouse } from "@/lib/content";
+import { about, bank, hero, redteam, warehouse } from "@/lib/content";
 
 export default function HireMe() {
   return (
@@ -21,11 +21,14 @@ export default function HireMe() {
 
       <section className="frame section-gap">
         <h2 className="mb-10 text-section md:mb-18">More work</h2>
+        <WorkRow {...redteam}>
+          <DataTable {...redteam} />
+        </WorkRow>
         <WorkRow {...warehouse}>
           <StarSchema />
         </WorkRow>
         <WorkRow {...bank}>
-          <ModelTable />
+          <DataTable {...bank} />
         </WorkRow>
       </section>
 
