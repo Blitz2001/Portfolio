@@ -16,41 +16,48 @@ export const hero = {
   lead: "Data science undergraduate at SLIIT, looking for an AI or data science internship. On DefenseOSINT I built the service that pulls people, organisations and the links between them out of raw evidence, then red-teamed the whole system.",
 };
 
-export type Stage = { name: string; text: string; tech: string; mine?: boolean };
+export type Stage = { id: string; name: string; text: string; tech: string; mine?: boolean };
 
 // Source: DefenseOSINT handover guide and viva companion.
 export const pipeline = {
-  caption: "DefenseOSINT turns a plain-language question into a cited intelligence brief. Six services talking over A2A. Click a stage.",
-  loop: "A weak brief goes back: the Critic’s findings become narrow follow-up searches, not a fresh start.",
+  title: "DefenseOSINT, as a switchboard",
+  caption: "Six services that talk over A2A, turning a plain-language question into a cited intelligence brief. Only the Planner dispatches and only the Planner remembers. When the Critic rejects a brief its flag goes up, and the Planner sends one targeted follow-up round instead of starting over. The animation replays a real investigation trace.",
+  hint: "Click a station",
   repo: "https://github.com/SanujaRubasinghe/DefenseOSINT",
   stages: [
     {
+      id: "gateway",
       name: "Gateway",
       text: "The front door. Authenticates each request before it reaches any agent.",
       tech: "Python",
     },
     {
+      id: "planner",
       name: "Planner",
       text: "Splits the question into research tasks, calls every other agent, and is the only service that remembers anything. It stops on an iteration, call and time budget.",
       tech: "Python · qwen2.5:3b on Ollama",
     },
     {
+      id: "collector",
       name: "Collector",
       text: "Runs the searches across web, news and image sources. Every record it returns carries its source, URL and retrieval time.",
       tech: "Python",
     },
     {
+      id: "entity",
       name: "Entity Extractor",
       text: "Finds the people, organisations, places and events in every document, and the relations between them. “The Sri Lanka Air Force’s” and “Sri Lanka Air Force” become one entity, and confidence grows with independent sources, not repetition.",
       tech: "Python · spaCy · coreferee · qwen2.5:7b retype pass",
       mine: true,
     },
     {
+      id: "analyst",
       name: "Analyst",
       text: "Writes the brief and cites evidence for every claim. A citation that isn’t in the evidence is removed in code, not by asking the model nicely.",
       tech: "Python · gpt-4o-mini",
     },
     {
+      id: "critic",
       name: "Critic",
       text: "Checks the brief for missing citations and contradictions. Each finding comes with search queries the Planner turns into follow-up tasks.",
       tech: "Python · qwen2.5:3b on Ollama",
