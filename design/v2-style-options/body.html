@@ -1,0 +1,106 @@
+<header class="nav">
+  <a class="wordmark" href="#">Arunu Sampath</a>
+  <nav><a href="#" aria-current="page">Hire me</a><a href="#">Freelance</a><a href="#">Lab</a></nav>
+  <a class="btn btn-sm" href="#">Download CV</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-text">
+    <h1>I build agents that check their work.</h1>
+    <p class="lead">Data science undergraduate at SLIIT, looking for an AI or data science internship. On DefenseOSINT I built the stage that turns raw reports into people, places and events, and the tests that prove it works.</p>
+    <a class="btn" href="#contact">Email me</a>
+  </div>
+
+  <figure class="pipe" data-ui>
+    <figcaption class="pipe-title">DefenseOSINT: six services talking over A2A. Click a stage.</figcaption>
+    <ol class="stages">
+      <li><button data-s="0">Planner</button></li>
+      <li><button data-s="1">Collector</button></li>
+      <li class="mine"><button data-s="2" aria-pressed="true">Entity Extractor<span class="tag">My part</span></button></li>
+      <li><button data-s="3">Analyst</button></li>
+      <li><button data-s="4">Critic</button></li>
+      <li><button data-s="5">Gateway</button></li>
+    </ol>
+    <svg class="loop" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M450 2 V30 H50 V8" fill="none" stroke="currentColor" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+      <path d="M43 12 L50 2 L57 12" fill="none" stroke="currentColor" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <p class="loop-label">Weak brief? The Critic sends it back to the Planner for more evidence.</p>
+    <div class="detail" aria-live="polite">
+      <h3 id="d-name">Entity Extractor</h3>
+      <p id="d-text">Reads every collected document and pulls out people, organisations, locations and events, plus the relations between them. Scored against a labelled dataset I built for it.</p>
+      <p class="d-tech" id="d-tech">Python · Qwen2.5 on Ollama · Docker</p>
+    </div>
+  </figure>
+</section>
+
+<section class="work">
+  <h2>More work</h2>
+
+  <article class="row">
+    <div class="row-text">
+      <h3>H&amp;M retail data warehouse</h3>
+      <p>A Kimball star schema built on the H&amp;M Kaggle dataset, millions of transactions. Four SSIS packages load it, including an accumulating-snapshot fact for fulfilment. An SSAS cube and four Power BI reports sit on top.</p>
+      <p class="meta">Individual project · SQL Server, SSIS, SSAS, Power BI</p>
+    </div>
+    <div class="row-fig schema" data-ui>
+      <div class="tbl dim a"><b>DimArticle</b><span>article_key</span><span>product_type_name</span><span>colour_group_name</span><span>department_name</span></div>
+      <div class="tbl dim c"><b>DimCustomer <em>SCD2</em></b><span>customer_key</span><span>club_member_status</span><span>age</span><span>valid_from · valid_to</span></div>
+      <div class="tbl fact"><b>FactSales</b><span>date_key</span><span>article_key</span><span>customer_key</span><span>sales_channel_id</span><span>price</span></div>
+      <div class="tbl dim d"><b>DimDate</b><span>date_key</span><span>week · month</span><span>season</span></div>
+      <div class="tbl fact snap"><b>FactFulfilment <em>accumulating</em></b><span>ordered_date_key</span><span>shipped_date_key</span><span>delivered_date_key</span><span>days_to_deliver</span></div>
+    </div>
+  </article>
+
+  <article class="row flip">
+    <div class="row-text">
+      <h3>Bank marketing prediction</h3>
+      <p>Which clients will open a term deposit? I led the correlation and confound analysis, outlier treatment and encoding, trained the XGBoost model, and built the comparison table the team used to pick the final model.</p>
+      <p class="meta">Team project · Python, pandas, scikit-learn, XGBoost</p>
+    </div>
+    <div class="row-fig" data-ui>
+      <table class="models">
+        <caption>Model comparison, held-out test set</caption>
+        <thead><tr><th>Model</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC AUC</th></tr></thead>
+        <tbody>
+          <tr><td>Logistic regression</td><td>[0.00]</td><td>[0.00]</td><td>[0.00]</td><td>[0.00]</td></tr>
+          <tr><td>Random forest</td><td>[0.00]</td><td>[0.00]</td><td>[0.00]</td><td>[0.00]</td></tr>
+          <tr class="pick"><td>XGBoost</td><td>[0.00]</td><td>[0.00]</td><td>[0.00]</td><td>[0.00]</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>
+
+<section class="about">
+  <h2>About</h2>
+  <div class="about-grid">
+    <p class="about-lead">BSc (Hons) in Information Technology, specialising in Data Science, at SLIIT. Expected 2027, GPA 3.54. Based in Colombo.</p>
+    <dl class="skills">
+      <div><dt>Machine learning</dt><dd>Python, pandas, scikit-learn, XGBoost, model evaluation</dd></div>
+      <div><dt>LLM agents</dt><dd>A2A, Ollama, Qwen2.5, entity and relation extraction</dd></div>
+      <div><dt>Data engineering</dt><dd>SQL Server, SSIS, SSAS, Power BI, dimensional modelling</dd></div>
+      <div><dt>Software</dt><dd>React, Node, Docker, Supabase</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Let’s talk about an internship.</h2>
+  <ul class="links">
+    <li><a href="mailto:arunu.1w@gmail.com">arunu.1w@gmail.com</a></li>
+    <li><a href="#">github.com/Blitz2001</a></li>
+    <li><a href="#">LinkedIn</a></li>
+    <li><a class="btn" href="#">Download CV</a></li>
+  </ul>
+  <p class="bigname">Arunu Sampath</p>
+</section>
+</main>
+
+<script>
+const S=[["Planner","Breaks the analyst’s question into collection tasks, and re-plans when the Critic sends a brief back.","Python · A2A"],["Collector","Gathers open-source material for each task and hands it down the line.","Python · Docker"],["Entity Extractor","Reads every collected document and pulls out people, organisations, locations and events, plus the relations between them. Scored against a labelled dataset I built for it.","Python · Qwen2.5 on Ollama · Docker"],["Analyst","Writes the intelligence brief from the extracted entities and relations.","Qwen2.5 on Ollama"],["Critic","Checks the brief against its evidence. A weak brief goes back to the Planner instead of out the door.","Qwen2.5 on Ollama · A2A"],["Gateway","The single way in and out: takes requests from the React front end and returns finished briefs.","Python · React"]];
+document.querySelectorAll('.stages button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.stages button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');const s=S[b.dataset.s];document.getElementById('d-name').textContent=s[0];document.getElementById('d-text').textContent=s[1];document.getElementById('d-tech').textContent=s[2];}));
+function fit(){const e=document.querySelector('.bigname');e.style.fontSize='100px';const r=e.parentElement.clientWidth-parseFloat(getComputedStyle(e.parentElement).paddingLeft)*2;e.style.fontSize=(100*r/e.scrollWidth*0.98)+'px';}
+document.fonts.ready.then(fit);addEventListener('resize',fit);
+</script>
