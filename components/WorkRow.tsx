@@ -16,7 +16,7 @@ export function WorkRow({
   children: React.ReactNode;
 }) {
   return (
-    <article className="grid items-start gap-6 lg:grid-cols-[5fr_7fr] lg:gap-16 [&+&]:mt-18 md:[&+&]:mt-30">
+    <article id={slug(title)} className="scroll-mt-8 grid items-start gap-6 lg:grid-cols-[5fr_7fr] lg:gap-16 [&+&]:mt-18 md:[&+&]:mt-30">
       <div data-reveal>
         <h3 className="mb-5 text-title">{title}</h3>
         <p className="max-w-[60ch]">{body}</p>
@@ -47,3 +47,5 @@ export function WorkRow({
     </article>
   );
 }
+
+const slug = (title: string) => title.toLowerCase().replace(/&/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

@@ -1,3 +1,4 @@
+import { CommandPalette } from "@/components/CommandPalette";
 import { RefTracker } from "@/components/RefTracker";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/SiteNav";
@@ -9,6 +10,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <main>{children}</main>
       <RefTracker />
       <Reveal />
+      <CommandPalette />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import { defineQuery } from "next-sanity";
+import type { NowItem } from "@/lib/content";
 import { client } from "@/sanity/client";
 
 export type Section = "hire" | "freelance" | "lab";
@@ -29,6 +30,19 @@ export async function getProjects(section: Section): Promise<Project[] | null> {
     return await client.fetch<Project[]>(PROJECTS, { section }, { next: { revalidate: 60, tags: ["project"] } });
   } catch (error) {
     console.error("Sanity fetch failed; falling back to local content", error);
+    return null;
+  }
+}
+
+const NOW = defineQuery(`*[_type == "nowItem" && published == true && !(_id in path("drafts.**"))] | order(order asc, _updatedAt desc) { status, title, detail, since, link }`);
+
+/** Published "Now" items, or null to keep the defaults in lib/content.ts. */
+export async function getNowItems(): Promise<NowItem[] | null> {
+  if (!client) return null;
+  try {
+    const items = await client.fetch<NowItem[]>(NOW, {}, { next: { revalidate: 60, tags: ["now"] } });
+    return items.length ? items : null;
+  } catch {
     return null;
   }
 }

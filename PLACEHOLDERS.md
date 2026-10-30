@@ -15,8 +15,14 @@ Everything below lives in `lib/content.ts` unless noted. Search the site for `[`
 
 Projects you add in `/studio` (section "Hire me") appear after these rows.
 
+- **Currently working on** (`now` in `lib/content.ts`, or add "Now" items in `/studio`; published ones replace the defaults): what you are building, learning, and when you are free for an internship; the "Updated [Month 2026]" line.
+- **Path so far** (`timeline`): the years for DefenseOSINT, freelancing and your SLIIT start; add modules or projects you want named.
+- **Achievements** (`achievements`): certificates, awards, hackathons. Hidden until you add one.
+- **Latest on GitHub** fills itself from your public repos once deployed (it cannot reach your profile from the build sandbox). Archived and forked repos are left out; give repos a description on GitHub so the list reads well.
+
 ## Freelance (`/freelance`)
 - **Fiverr profile URL** (`site.fiverr`).
+- **Direct contact** (`freelance.direct`): your reply-time promise, the three budget ranges (in the currency you quote in), and `site.whatsapp` if you want a WhatsApp link (empty hides it).
 - **Screenshots**: MyHelper Lanka, Africa Travel & Life, POS. Easiest: add each as a project in `/studio` (section "Freelance") with its screenshot; once any exist they replace the hand-written list. This is also the one check the design gate still fails on this page (no pictures).
 - **POS stack** (`[Stack used for the POS]`).
 - Check the service and "how to hire me" wording.

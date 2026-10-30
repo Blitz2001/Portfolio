@@ -17,6 +17,7 @@ v1 stays live on GitHub Pages until step 6. Nothing here touches `main` until yo
 4. Open `/studio` on the site, log in, and add a project. Pick **Shown on** (Hire me, Freelance or Lab), tick **Published**, and it appears within a minute.
 
 Until a page has published Sanity projects it keeps showing the hand-written ones in `lib/content.ts`.
+"Now (currently working on)" items work the same way: publish one and they replace the defaults on the home page.
 
 ## 3. Analytics (1 minute)
 
@@ -54,3 +55,4 @@ Check `/`, `/freelance`, `/lab`, `/studio`, `/admin`, and one `?ref=` link befor
 | `NEXT_PUBLIC_SANITY_DATASET` | `production` | same |
 | `DATABASE_URL` | Vercel Storage → Neon | tracking links |
 | `ADMIN_PASSWORD` | you choose | `/admin` |
+| `GITHUB_TOKEN` (optional) | github.com → Settings → Developer settings → tokens, no scopes | more headroom for "Latest on GitHub" |

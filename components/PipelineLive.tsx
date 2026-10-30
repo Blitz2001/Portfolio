@@ -35,7 +35,7 @@ export function PipelineLive({ art }: { art: React.ReactNode }) {
   };
 
   return (
-    <figure data-ui className="mt-14 rounded-[28px] bg-sand-2 p-4 md:mt-24 md:p-8">
+    <figure id="fig" data-ui className="scroll-mt-8 mt-14 rounded-[28px] bg-sand-2 p-4 md:mt-24 md:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-1 text-[0.9375rem] font-semibold">
         <span>Fig 1</span>
         <span>{pipeline.title}</span>

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { DataTable } from "@/components/DataTable";
 import { ExtractorLab } from "@/components/ExtractorLab";
+import { NowSection } from "@/components/NowSection";
+import { Timeline } from "@/components/Timeline";
 import { Hero } from "@/components/Hero";
 import { Pipeline } from "@/components/Pipeline";
 import { StarSchema } from "@/components/StarSchema";
@@ -19,7 +21,9 @@ export default async function HireMe() {
         <Pipeline />
       </Hero>
 
-      <section className="frame pb-[clamp(80px,10vw,160px)]">
+      <NowSection />
+
+      <section id="inside" className="frame scroll-mt-8 pb-[clamp(80px,10vw,160px)]">
         <div className="mb-10 grid gap-6 md:mb-14 lg:grid-cols-[5fr_7fr] lg:gap-16">
           <h2 data-reveal className="text-section">
             Inside my part
@@ -31,7 +35,7 @@ export default async function HireMe() {
         <ExtractorLab />
       </section>
 
-      <section className="frame section-gap">
+      <section id="work" className="frame section-gap">
         <h2 data-reveal className="mb-10 text-section md:mb-18">
           More work
         </h2>
@@ -61,7 +65,7 @@ export default async function HireMe() {
         {extra && <ProjectRows projects={extra} />}
       </section>
 
-      <section className="frame section-gap">
+      <section id="about" className="frame section-gap">
         <h2 data-reveal className="mb-10 text-section md:mb-18">
           About
         </h2>
@@ -87,6 +91,7 @@ export default async function HireMe() {
                 </div>
               ))}
             </dl>
+            <Timeline />
           </div>
         </div>
       </section>

@@ -9,7 +9,51 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/arunu-sampath-6b10443a4",
   cv: "/resume.pdf",
   fiverr: "#", // [Fiverr profile URL]
+  githubUser: "Blitz2001",
+  whatsapp: "", // [WhatsApp number in international form, e.g. 94771234567]; empty hides the WhatsApp link
 };
+
+export type NowItem = { status: string; title: string; detail: string; since?: string; link?: string };
+
+/** "Currently working on". Sanity's "Now" items replace these once you add any in /studio. */
+export const now = {
+  title: "Currently working on",
+  lead: "What has my attention this month, plus what I last pushed to GitHub.",
+  updated: "[Month 2026]",
+  items: [
+    { status: "Building", title: "[Project you are building now]", detail: "[One sentence: what it does and what is new about it.]", since: "[Month]" },
+    { status: "Learning", title: "[Course, paper or skill]", detail: "[One sentence: why, and what you will build with it.]" },
+    { status: "Looking for", title: "An AI or data science internship", detail: "[From which month, full or part time, on site or remote.]" },
+  ] satisfies NowItem[],
+};
+
+export type TimelineEntry = { when: string; title: string; where: string; detail: string };
+
+/** About → "Path so far", newest first. */
+export const timeline: TimelineEntry[] = [
+  {
+    when: "[Year]",
+    title: "Entity Extractor and responsible-AI assessment",
+    where: "DefenseOSINT, team of four",
+    detail: "Built the spaCy-based entity and relation extraction service, then red-teamed the whole system: 16 test cases, 6 vulnerabilities found.",
+  },
+  {
+    when: "[Year] – now",
+    title: "Freelance developer",
+    where: "Fiverr and direct clients",
+    detail: "Flutter apps and a React admin for MyHelper Lanka, a WordPress and Stripe site for Africa Travel & Life, a POS with inventory.",
+  },
+  {
+    when: "[Start year] – 2027",
+    title: "BSc (Hons) in IT, specialising in Data Science",
+    where: "SLIIT, Colombo",
+    detail: "GPA 3.54. [Modules or a project you want to name.]",
+  },
+];
+
+/** Certificates, awards, hackathons. The section stays hidden while this list is empty.
+ *  Example: { title: "[Certificate name]", by: "[Issuer]", when: "[Year]", link: "[URL]" } */
+export const achievements: { title: string; by: string; when: string; link?: string }[] = [];
 
 export const hero = {
   title: "I build agents that check their work.",
@@ -160,8 +204,16 @@ export const freelance = {
       image: "[Screenshot: POS screen]",
     },
   ],
+  direct: {
+    title: "Or work with me directly",
+    lead: "Skip the marketplace: tell me what you need and it opens as an email to me, ready to send.",
+    reply: "[I reply within one working day.]",
+    types: ["Mobile app", "Web app or admin panel", "Website with payments", "Point of sale", "Something else"],
+    timelines: ["As soon as possible", "Within a month", "In 1–3 months", "Not sure yet"],
+    budgets: ["Not sure yet", "[Budget range 1]", "[Budget range 2]", "[Budget range 3]"],
+  },
   steps: [
-    "Message me on Fiverr or by email with what you need.",
+    "Message me on Fiverr, or directly with the form below.",
     "I reply with a scope, a price and a timeline.",
     "You see progress as I build, and we launch together.",
   ],

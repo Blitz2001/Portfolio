@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
+import { PaletteButton } from "./CommandPalette";
 import { ThemeToggle } from "./ThemeToggle";
 
 const tabs = [
@@ -34,6 +35,7 @@ export function SiteNav() {
         })}
       </nav>
       <div className="ml-auto flex items-center gap-2 md:ml-0">
+        <PaletteButton />
         <ThemeToggle />
         <a href={site.cv} className="btn px-4 py-2.5">
           Download CV

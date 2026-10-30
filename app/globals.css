@@ -66,6 +66,10 @@
   @apply inline-block rounded-full bg-cobalt px-6 py-3.5 text-[0.9375rem] font-semibold text-sand no-underline transition-transform duration-150 ease-out hover:-translate-y-0.5 active:scale-[0.97];
 }
 
+@utility btn-outline {
+  @apply border-2 border-cobalt bg-transparent px-[22px] py-3 text-cobalt hover:bg-sand-2;
+}
+
 @utility btn-inverse {
   @apply bg-sand text-cobalt;
 }
@@ -226,6 +230,33 @@
   }
 }
 
+/* The first "Now" item carries a slow live pulse. */
+.live-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  animation: live-pulse 2.4s var(--ease-out) infinite;
+}
+@keyframes live-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
 /* Theme switch: the new theme opens as a circle from the toggle. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -254,6 +285,7 @@
   .mask-word,
   .page-enter,
   .wordmark,
+  .live-dot::after,
   ::view-transition-new(root) {
     animation: none;
   }

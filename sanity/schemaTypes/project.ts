@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { nowItem } from "./now";
 
 export const project = defineType({
   name: "project",
@@ -50,4 +51,4 @@ export const project = defineType({
   },
 });
 
-export const schemaTypes = [project];
+export const schemaTypes = [project, nowItem];
