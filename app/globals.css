@@ -13,6 +13,27 @@
   --text-lead: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
 }
 
+/* Cobalt night: the same two inks swapped onto a blue-black ground. Every component uses these four
+   tokens, so each section inverts with no per-component work (the cobalt contact field becomes sand). */
+@layer theme {
+  :root[data-theme="dark"] {
+    --color-sand: #081133;
+    --color-sand-2: #0f1c4b;
+    --color-cobalt: #ebe1cc;
+    --color-cobalt-soft: #a3b0d8;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-sand: #081133;
+      --color-sand-2: #0f1c4b;
+      --color-cobalt: #ebe1cc;
+      --color-cobalt-soft: #a3b0d8;
+      color-scheme: dark;
+    }
+  }
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
@@ -83,6 +104,24 @@
   [data-ui] button:hover,
   [data-ui] button:active {
     transform: none;
+  }
+}
+
+/* Theme switch: the new theme opens as a circle from the toggle. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-open 620ms var(--ease-out);
+}
+@keyframes theme-open {
+  from {
+    clip-path: circle(0 at var(--tx, 100%) var(--ty, 0));
+  }
+  to {
+    clip-path: circle(var(--tr, 150vmax) at var(--tx, 100%) var(--ty, 0));
   }
 }
 

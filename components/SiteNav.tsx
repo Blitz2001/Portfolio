@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
+import { ThemeToggle } from "./ThemeToggle";
 
 const tabs = [
   { href: "/", label: "Hire me" },
@@ -32,9 +33,12 @@ export function SiteNav() {
           );
         })}
       </nav>
-      <a href={site.cv} className="btn ml-auto px-4 py-2.5 text-[0.9375rem] md:ml-0">
-        Download CV
-      </a>
+      <div className="ml-auto flex items-center gap-2 md:ml-0">
+        <ThemeToggle />
+        <a href={site.cv} className="btn px-4 py-2.5">
+          Download CV
+        </a>
+      </div>
     </header>
   );
 }

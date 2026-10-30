@@ -107,6 +107,23 @@
   --anatomy-halo:#6f5c38;--anatomy-halo-opacity:.28;--anatomy-dot:#062b8a;
   
 }
+/* Cobalt night: the same figure in sand ink on blue-black, for the site's dark theme. */
+:root[data-theme="dark"] .iso.cobalt{
+  --anatomy-page:#081133;--anatomy-card:#0f1c4b;--anatomy-text:#ebe1cc;--anatomy-strong:#ebe1cc;--anatomy-muted:#a3b0d8;
+  --anatomy-paper:#16265c;--anatomy-face:#2a3d86;--anatomy-top:#1d2f6b;
+  --anatomy-shade-0:#0b1640;--anatomy-shade-1:#0f1b4a;--anatomy-shade-2:#132155;--anatomy-shade-3:#172760;
+  --anatomy-lit-top:#3a4f9e;--anatomy-lit-shade:#2c3f87;
+  --anatomy-hi:#ebe1cc;--anatomy-mid:#9fabd4;--anatomy-lo:#5c6ba3;--anatomy-faint:#33437f;--anatomy-lit:#ebe1cc;
+  --anatomy-halo:#000000;--anatomy-halo-opacity:.6;--anatomy-dot:#ebe1cc;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .iso.cobalt{
+  --anatomy-page:#081133;--anatomy-card:#0f1c4b;--anatomy-text:#ebe1cc;--anatomy-strong:#ebe1cc;--anatomy-muted:#a3b0d8;
+  --anatomy-paper:#16265c;--anatomy-face:#2a3d86;--anatomy-top:#1d2f6b;
+  --anatomy-shade-0:#0b1640;--anatomy-shade-1:#0f1b4a;--anatomy-shade-2:#132155;--anatomy-shade-3:#172760;
+  --anatomy-lit-top:#3a4f9e;--anatomy-lit-shade:#2c3f87;
+  --anatomy-hi:#ebe1cc;--anatomy-mid:#9fabd4;--anatomy-lo:#5c6ba3;--anatomy-faint:#33437f;--anatomy-lit:#ebe1cc;
+  --anatomy-halo:#000000;--anatomy-halo-opacity:.6;--anatomy-dot:#ebe1cc;
+}}
 .iso.cobalt .iso-face-text{font-weight:800;letter-spacing:.03em}
 .iso.cobalt .station{cursor:pointer;outline:none}
 .iso.cobalt .station .iso-edge{transition:stroke-width .2s}
