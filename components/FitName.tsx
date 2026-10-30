@@ -26,7 +26,7 @@ export function FitName({ children }: { children: string }) {
     <p
       ref={ref}
       aria-hidden="true"
-      className="mt-20 inline-block text-[15vw] leading-[0.85] font-extrabold tracking-[-0.05em] whitespace-nowrap md:mt-40"
+      className="wordmark mt-20 inline-block text-[15vw] leading-[0.85] font-extrabold tracking-[-0.05em] whitespace-nowrap md:mt-40"
     >
       {children}
     </p>

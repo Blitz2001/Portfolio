@@ -70,10 +70,47 @@
   @apply bg-sand text-cobalt;
 }
 
+/* Links carry a drawn underline (a bar that scales) that retracts on hover and draws back on leave. */
 @utility ink-link {
-  @apply underline decoration-2 underline-offset-[6px] transition-[text-decoration-color] hover:decoration-transparent;
+  position: relative;
+  text-decoration: none;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 2px;
+    background: currentColor;
+    transform-origin: right;
+    transition: transform 220ms var(--ease-out);
+  }
+  &:hover::after {
+    transform: scaleX(0);
+  }
 }
 
+/* Nav tabs: the bar draws in on hover and stays under the current page. */
+@utility nav-link {
+  position: relative;
+  text-decoration: none;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms var(--ease-out);
+  }
+  &:hover::after,
+  &[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+}
 /* Entrances: each part of a section rises in turn. Hidden only once the script has run, so a page
    without JavaScript is never blank. */
 :root {
@@ -92,6 +129,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   /* Keep feedback (colour, opacity) but drop travel. */
+
   .reveal-ready [data-reveal]:not([data-shown]) {
     transform: none;
   }
@@ -104,6 +142,87 @@
   [data-ui] button:hover,
   [data-ui] button:active {
     transform: none;
+  }
+}
+
+/* Signature: hero words rise from behind their own baseline. */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.1em 0.08em 0.14em;
+  margin: -0.1em -0.08em -0.14em;
+}
+.mask-word {
+  display: inline-block;
+  animation: word-rise 1000ms var(--ease-out) both;
+  animation-delay: calc(120ms + var(--w, 0) * 70ms);
+}
+@keyframes word-rise {
+  from {
+    transform: translateY(108%);
+  }
+}
+
+/* Each tab arrives with a short rise. */
+.page-enter {
+  animation: page-in 420ms var(--ease-out) both;
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Rolling figures: each digit column shows its value; before its block is revealed it waits at 0. */
+.roll {
+  display: inline-flex;
+}
+.roll-window {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  line-height: 1;
+}
+.roll-col {
+  display: block;
+  line-height: 1;
+  white-space: pre;
+  transform: translateY(calc(var(--d) * -1em));
+  transition: transform 1400ms var(--ease-out);
+  transition-delay: calc(200ms + var(--c, 0) * 90ms);
+}
+.roll-col::before {
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+}
+.reveal-ready [data-reveal]:not([data-shown]) .roll-col {
+  transform: translateY(0);
+}
+
+/* Interval bars grow from the left when their table arrives. */
+.interval-fill {
+  transform-origin: left;
+  transition: transform 900ms var(--ease-out);
+  transition-delay: calc(300ms + var(--r, 0) * 90ms);
+}
+.reveal-ready [data-reveal]:not([data-shown]) .interval-fill {
+  transform: scaleX(0);
+}
+
+/* The closing name settles to full size as it scrolls in (where scroll-driven animation exists). */
+@supports (animation-timeline: view()) {
+  .wordmark {
+    transform-origin: left bottom;
+    animation: wordmark-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+  }
+  @keyframes wordmark-in {
+    from {
+      transform: translateY(18%) scale(0.92);
+      opacity: 0.35;
+    }
   }
 }
 
@@ -128,4 +247,18 @@
 /* On the cobalt section the focus ring turns sand so it stays visible. */
 .bg-cobalt :focus-visible {
   outline-color: var(--color-sand);
+}
+
+/* Reduced motion, last so it wins: state changes stay, travel goes. */
+@media (prefers-reduced-motion: reduce) {
+  .mask-word,
+  .page-enter,
+  .wordmark,
+  ::view-transition-new(root) {
+    animation: none;
+  }
+  .roll-col,
+  .interval-fill {
+    transition: none;
+  }
 }

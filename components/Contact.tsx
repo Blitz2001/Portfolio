@@ -1,5 +1,6 @@
 import { site } from "@/lib/content";
 import { FitName } from "./FitName";
+import { LocalTime } from "./LocalTime";
 
 export function Contact({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
@@ -30,6 +31,7 @@ export function Contact({ title, children }: { title: string; children?: React.R
           </a>
         </li>
       </ul>
+      <LocalTime />
       <div>
         <FitName>{site.name}</FitName>
       </div>

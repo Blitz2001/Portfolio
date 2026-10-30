@@ -26,7 +26,7 @@ export function SiteNav() {
               key={t.href}
               href={t.href}
               aria-current={active ? "page" : undefined}
-              className={`text-base font-semibold no-underline decoration-2 underline-offset-[6px] hover:underline ${active ? "underline" : ""}`}
+              className="nav-link text-base font-semibold"
             >
               {t.label}
             </Link>

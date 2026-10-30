@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -10,16 +10,26 @@ const current = (): Theme => {
   return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
+// Follows both the saved choice (the data-theme attribute) and the system setting.
+function subscribe(update: () => void) {
+  const media = matchMedia("(prefers-color-scheme: dark)");
+  const observer = new MutationObserver(update);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  media.addEventListener("change", update);
+  return () => {
+    observer.disconnect();
+    media.removeEventListener("change", update);
+  };
+}
+
 // Light/dark switch. The new theme opens as a circle from the button where View Transitions exist.
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
-  useEffect(() => setTheme(current()), []);
+  const theme = useSyncExternalStore<Theme | null>(subscribe, current, () => null);
 
   const flip = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next: Theme = current() === "dark" ? "light" : "dark";
     const apply = () => {
       document.documentElement.dataset.theme = next;
-      setTheme(next);
       try {
         localStorage.setItem("theme", next);
       } catch {}

@@ -4,6 +4,7 @@ export function WorkRow({
   meta,
   link,
   live,
+  extra,
   children,
 }: {
   title: string;
@@ -11,6 +12,7 @@ export function WorkRow({
   meta: string;
   link?: string;
   live?: string;
+  extra?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
@@ -37,6 +39,7 @@ export function WorkRow({
             </>
           )}
         </p>
+        {extra}
       </div>
       <div data-reveal style={{ "--i": 1 } as React.CSSProperties}>
         {children}
