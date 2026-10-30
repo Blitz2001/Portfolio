@@ -17,7 +17,7 @@ export function WorkRow({
 }) {
   return (
     <article id={slug(title)} className="scroll-mt-8 grid items-start gap-6 lg:grid-cols-[5fr_7fr] lg:gap-16 [&+&]:mt-18 md:[&+&]:mt-30">
-      <div data-reveal>
+      <div data-reveal className="min-w-0">
         <h3 className="mb-5 text-title">{title}</h3>
         <p className="max-w-[60ch]">{body}</p>
         <p className="mt-4 text-[0.9375rem] text-cobalt-soft">
@@ -41,7 +41,7 @@ export function WorkRow({
         </p>
         {extra}
       </div>
-      <div data-reveal style={{ "--i": 1 } as React.CSSProperties}>
+      <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="min-w-0">
         {children}
       </div>
     </article>

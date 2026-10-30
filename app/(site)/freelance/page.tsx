@@ -4,6 +4,7 @@ import { DirectContact } from "@/components/DirectContact";
 import Image from "next/image";
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
+import { Tilt } from "@/components/motion/Tilt";
 import { Shot } from "@/components/Shot";
 import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
@@ -33,14 +34,16 @@ export default async function Freelance() {
         <ul className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
           {["morgij", "code-bel", "reelweave", "wavix"].map((slug, i) => (
             <li key={slug} data-reveal style={{ "--i": i } as React.CSSProperties}>
+              <Tilt className="group overflow-hidden rounded-[20px]">
               <Image
                 src={`/lab/${slug}.webp`}
                 alt={`${slug.replace(/-/g, " ")} logo mockup`}
                 width={800}
                 height={600}
                 sizes="(min-width: 768px) 25vw, 50vw"
-                className="aspect-[4/3] w-full rounded-[20px] object-cover"
+                className="aspect-[4/3] w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]"
               />
+              </Tilt>
             </li>
           ))}
         </ul>
@@ -48,11 +51,13 @@ export default async function Freelance() {
 
       <section className="frame section-gap bg-sand-2">
         <h2 data-reveal className="mb-10 text-section md:mb-18">What I build</h2>
-        <dl className="grid gap-x-16 gap-y-10 md:grid-cols-2">
-          {freelance.services.map((s) => (
-            <div key={s.name}>
-              <dt className="mb-2 text-title font-extrabold tracking-[-0.05em] leading-[0.95]">{s.name}</dt>
-              <dd className="max-w-[44ch]">{s.text}</dd>
+        <dl className="grid gap-4 md:grid-cols-2">
+          {freelance.services.map((s, i) => (
+            <div key={s.name} data-reveal style={{ "--i": i } as React.CSSProperties}>
+              <Tilt className="h-full rounded-[28px] bg-sand p-6 md:p-9">
+                <dt className="mb-3 text-title leading-[0.95] font-extrabold tracking-[-0.05em]">{s.name}</dt>
+                <dd className="max-w-[44ch]">{s.text}</dd>
+              </Tilt>
             </div>
           ))}
         </dl>

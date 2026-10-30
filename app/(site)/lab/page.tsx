@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { Hero } from "@/components/Hero";
+import { Tilt } from "@/components/motion/Tilt";
 import { Shot } from "@/components/Shot";
 import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
@@ -26,15 +27,17 @@ export default async function Lab() {
         <ul className="grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
           {lab.logos.map((slug, i) => (
             <li key={slug} className={i < 2 ? "col-span-2 md:col-span-3" : "col-span-1 md:col-span-2"}>
-              <figure>
+              <figure data-reveal style={{ "--i": i % 3 } as React.CSSProperties}>
+                <Tilt className="group overflow-hidden rounded-[20px]">
                 <Image
                   src={`/lab/${slug}.webp`}
                   alt={`${label(slug)} logo mockup`}
                   width={1600}
                   height={1067}
                   sizes="(min-width: 768px) 50vw, 100vw"
-                  className="aspect-[3/2] w-full rounded-[20px] object-cover"
+                  className="aspect-[3/2] w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.06]"
                 />
+                </Tilt>
                 <figcaption className="mt-2 text-[0.9375rem] font-semibold">{label(slug)}</figcaption>
               </figure>
             </li>

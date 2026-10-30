@@ -1,6 +1,7 @@
 import { site } from "@/lib/content";
 import { FitName } from "./FitName";
 import { LocalTime } from "./LocalTime";
+import { Magnetic } from "./motion/Magnetic";
 
 export function Contact({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
@@ -26,9 +27,11 @@ export function Contact({ title, children }: { title: string; children?: React.R
         </li>
         {children}
         <li>
-          <a href={site.cv} className="btn btn-inverse">
-            Download CV
-          </a>
+          <Magnetic>
+            <a href={site.cv} className="btn btn-inverse">
+              Download CV
+            </a>
+          </Magnetic>
         </li>
       </ul>
       <LocalTime />

@@ -230,6 +230,31 @@
   }
 }
 
+/* Inside a project card the fragments step back to the page ground, so card and fragment read apart. */
+/* Pinned project cards really float over one another, so their leading edge casts onto the card below. */
+.stack-float {
+  box-shadow: 0 -18px 50px -30px rgb(0 0 0 / 0.45); /* taste-skill-ignore */
+}
+.stack-card .bg-sand-2 {
+  background-color: var(--color-sand);
+}
+
+/* Section headings wipe up from their baseline instead of fading. */
+.reveal-ready h2[data-reveal] {
+  transition:
+    clip-path 900ms var(--ease-out),
+    transform 900ms var(--ease-out),
+    opacity 400ms var(--ease-out);
+}
+.reveal-ready h2[data-reveal]:not([data-shown]) {
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(40%);
+  opacity: 1;
+}
+h2[data-reveal] {
+  clip-path: inset(-0.2em -0.1em -0.25em -0.1em);
+}
+
 /* The first "Now" item carries a slow live pulse. */
 .live-dot {
   position: relative;
@@ -290,7 +315,12 @@
     animation: none;
   }
   .roll-col,
-  .interval-fill {
+  .interval-fill,
+  .reveal-ready h2[data-reveal] {
     transition: none;
+  }
+  .reveal-ready h2[data-reveal]:not([data-shown]) {
+    clip-path: none;
+    transform: none;
   }
 }

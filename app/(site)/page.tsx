@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { DataTable } from "@/components/DataTable";
 import { ExtractorLab } from "@/components/ExtractorLab";
+import { Marquee } from "@/components/motion/Marquee";
+import { StackCards } from "@/components/motion/StackCards";
 import { NowSection } from "@/components/NowSection";
 import { Timeline } from "@/components/Timeline";
 import { Hero } from "@/components/Hero";
@@ -35,10 +37,18 @@ export default async function HireMe() {
         <ExtractorLab />
       </section>
 
-      <section id="work" className="frame section-gap">
+      <Marquee
+        rows={[
+          ["Python", "spaCy", "XGBoost", "scikit-learn", "pandas", "Qwen2.5", "A2A"],
+          ["SQL Server", "SSIS", "Power BI", "Docker", "React", "Supabase", "Flutter"],
+        ]}
+      />
+
+      <section id="work" className="frame pb-[clamp(80px,10vw,160px)]">
         <h2 data-reveal className="mb-10 text-section md:mb-18">
           More work
         </h2>
+        <StackCards>
         <WorkRow
           {...redteam}
           extra={
@@ -62,7 +72,8 @@ export default async function HireMe() {
         <WorkRow {...bank}>
           <DataTable {...bank} />
         </WorkRow>
-        {extra && <ProjectRows projects={extra} />}
+          {extra ? ProjectRows({ projects: extra }) : null}
+        </StackCards>
       </section>
 
       <section id="about" className="frame section-gap">
