@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { Contact } from "@/components/Contact";
 import { DataTable } from "@/components/DataTable";
-import { ExtractorLab } from "@/components/ExtractorLab";
 import { Marquee } from "@/components/motion/Marquee";
 import { StackCards } from "@/components/motion/StackCards";
 import { NowSection } from "@/components/NowSection";
 import { Timeline } from "@/components/Timeline";
 import { Hero } from "@/components/Hero";
-import { Pipeline } from "@/components/Pipeline";
 import { StarSchema } from "@/components/StarSchema";
+import { StepList } from "@/components/StepList";
 import { ProjectRows } from "@/components/ProjectRows";
 import { Rolling } from "@/components/Rolling";
+import { ScrollStory } from "@/components/story/ScrollStory";
 import { WorkRow } from "@/components/WorkRow";
 import { getProjects } from "@/lib/projects";
 import { about, bank, hero, redteam, warehouse } from "@/lib/content";
@@ -19,23 +19,11 @@ export default async function HireMe() {
   const extra = await getProjects("hire");
   return (
     <>
-      <Hero title={hero.title} lead={hero.lead} action={{ href: "#contact", label: "Email me" }}>
-        <Pipeline />
-      </Hero>
+      <Hero title={hero.title} lead={hero.lead} action={{ href: "#contact", label: "Email me" }} />
+
+      <ScrollStory />
 
       <NowSection />
-
-      <section id="inside" className="frame scroll-mt-8 pb-[clamp(80px,10vw,160px)]">
-        <div className="mb-10 grid gap-6 md:mb-14 lg:grid-cols-[5fr_7fr] lg:gap-16">
-          <h2 data-reveal className="text-section">
-            Inside my part
-          </h2>
-          <p data-reveal style={{ "--i": 1 } as React.CSSProperties} className="max-w-[52ch] self-end text-lead leading-[1.4]">
-            The two rules that decide what my Entity Extractor reports, running in your browser. Try your own names.
-          </p>
-        </div>
-        <ExtractorLab />
-      </section>
 
       <Marquee
         rows={[
@@ -70,7 +58,7 @@ export default async function HireMe() {
           <StarSchema />
         </WorkRow>
         <WorkRow {...bank}>
-          <DataTable {...bank} />
+          <StepList caption="My part of the team pipeline" steps={bank.steps} />
         </WorkRow>
           {extra ? ProjectRows({ projects: extra }) : null}
         </StackCards>

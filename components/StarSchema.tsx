@@ -3,7 +3,7 @@ import { warehouse } from "@/lib/content";
 function Table({ name, tag, cols, fact, className = "" }: { name: string; tag?: string; cols: string[]; fact?: boolean; className?: string }) {
   return (
     <div
-      className={`flex flex-col rounded-xl border-2 border-cobalt p-3 ${fact ? "justify-center bg-cobalt text-sand" : "bg-sand"} ${className}`}
+      className={`flex min-w-0 flex-col rounded-xl border-2 border-cobalt p-3 ${fact ? "justify-center bg-cobalt text-sand" : "bg-sand"} ${className}`}
     >
       <b className="mb-2 flex flex-wrap items-center gap-1.5 text-base font-extrabold tracking-[-0.03em]">
         {name}
@@ -14,7 +14,7 @@ function Table({ name, tag, cols, fact, className = "" }: { name: string; tag?: 
         )}
       </b>
       {cols.map((c) => (
-        <span key={c}>{c}</span>
+        <span key={c} className="[overflow-wrap:anywhere]">{c}</span>
       ))}
     </div>
   );
@@ -26,14 +26,14 @@ export function StarSchema() {
     <div
       data-ui
       role="img"
-      aria-label="Star schema: FactSales joined to DimArticle, DimCustomer (SCD type 2) and DimDate, with a FactFulfilment accumulating snapshot"
+      aria-label="Star schema: FactSales with accumulating fulfilment columns, joined to DimArticle, DimCustomer (SCD type 2) and DimDate; completion times come from a separate OrderFulfillment source table"
       className="grid grid-cols-2 gap-3.5 rounded-[28px] bg-sand-2 p-4 text-sm leading-[1.35] [grid-template-areas:'f_f'_'a_c'_'d_s'] md:grid-cols-[1fr_1.15fr_1fr] md:p-8 md:[grid-template-areas:'a_f_c'_'d_f_s']"
     >
       <Table name="DimArticle" cols={t.article} className="[grid-area:a]" />
-      <Table name="FactSales" cols={t.sales} fact className="[grid-area:f]" />
+      <Table name="FactSales" tag="accumulating" cols={t.sales} fact className="[grid-area:f]" />
       <Table name="DimCustomer" tag="SCD2" cols={t.customer} className="[grid-area:c]" />
       <Table name="DimDate" cols={t.date} className="[grid-area:d]" />
-      <Table name="FactFulfilment" tag="accumulating" cols={t.fulfilment} className="[grid-area:s]" />
+      <Table name="OrderFulfillment" tag="source" cols={t.orders} className="[grid-area:s] border-dashed" />
     </div>
   );
 }

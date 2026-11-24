@@ -13,7 +13,7 @@ export function WorkRow({
   link?: string;
   live?: string;
   extra?: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
     <article id={slug(title)} className="scroll-mt-8 grid items-start gap-6 lg:grid-cols-[5fr_7fr] lg:gap-16 [&+&]:mt-18 md:[&+&]:mt-30">
@@ -41,9 +41,11 @@ export function WorkRow({
         </p>
         {extra}
       </div>
-      <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="min-w-0">
-        {children}
-      </div>
+      {children && (
+        <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="min-w-0">
+          {children}
+        </div>
+      )}
     </article>
   );
 }

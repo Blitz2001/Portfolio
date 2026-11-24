@@ -27,7 +27,8 @@ const PROJECTS = defineQuery(`*[_type == "project" && published == true && secti
 export async function getProjects(section: Section): Promise<Project[] | null> {
   if (!client) return null;
   try {
-    return await client.fetch<Project[]>(PROJECTS, { section }, { next: { revalidate: 60, tags: ["project"] } });
+    const options = process.env.GITHUB_PAGES === "true" ? undefined : { next: { revalidate: 60, tags: ["project"] } };
+    return await client.fetch<Project[]>(PROJECTS, { section }, options);
   } catch (error) {
     console.error("Sanity fetch failed; falling back to local content", error);
     return null;
@@ -40,7 +41,8 @@ const NOW = defineQuery(`*[_type == "nowItem" && published == true && !(_id in p
 export async function getNowItems(): Promise<NowItem[] | null> {
   if (!client) return null;
   try {
-    const items = await client.fetch<NowItem[]>(NOW, {}, { next: { revalidate: 60, tags: ["now"] } });
+    const options = process.env.GITHUB_PAGES === "true" ? undefined : { next: { revalidate: 60, tags: ["now"] } };
+    const items = await client.fetch<NowItem[]>(NOW, {}, options);
     return items.length ? items : null;
   } catch {
     return null;

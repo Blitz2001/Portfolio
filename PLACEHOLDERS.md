@@ -1,37 +1,25 @@
-# Placeholders to fill before launch
+# Open items before launch
 
-Everything below lives in `lib/content.ts` unless noted. Search the site for `[` to find any left over.
+Everything below lives in `lib/content.ts` unless noted. Search `/`, `/freelance`, and `/lab` for `[` to confirm nothing else is left open.
 
-## Hire me (`/`)
-- **Pipeline**: rewritten from the handover guide and viva companion. Check the Gateway and Collector tech (only "Python" is listed), and whether the Analyst should say gpt-4o-mini (production) or qwen2.5:3b (what you ran locally).
-- **Labelled dataset**: your CV says you built an evaluation pipeline with a custom labelled dataset for the Entity Extractor. Neither PDF mentions it, so the site doesn't either. If it exists, send the numbers (precision, recall, F1) and it goes in the Entity Extractor panel.
-- **Red-teaming row**: link to the report or harness if you can share it (`redteam.link`). The table uses five of your 16 tests; swap any you'd rather show.
-- **Bank marketing table**: model names and every metric (`[0.00]`). Mark the model you actually picked with `picked: true`.
-- **H&M fulfilment snapshot columns**: `ordered_date_key`, `shipped_date_key`, `delivered_date_key`, `days_to_deliver` are guesses.
-- **Code links**: warehouse, bank marketing and red-teaming `link: "#"`. Links left as `#` are hidden, so nothing breaks; fill them to show a "Code" link.
-- **CV**: `public/resume.pdf` is the file from v1. Replace it with your current CV.
+## Pending from owner
 
-- **Analyst model in the figure panel**: says gpt-4o-mini (production); your tests used qwen2.5:3b.
-
-Projects you add in `/studio` (section "Hire me") appear after these rows.
-
-- **Currently working on** (`now` in `lib/content.ts`, or add "Now" items in `/studio`; published ones replace the defaults): what you are building, learning, and when you are free for an internship; the "Updated [Month 2026]" line.
-- **Path so far** (`timeline`): the years for DefenseOSINT, freelancing and your SLIIT start; add modules or projects you want named.
-- **Achievements** (`achievements`): certificates, awards, hackathons. Hidden until you add one.
-- **Latest on GitHub** fills itself from your public repos once deployed (it cannot reach your profile from the build sandbox). Archived and forked repos are left out; give repos a description on GitHub so the list reads well.
-
-## Freelance (`/freelance`)
-- **Fiverr profile URL** (`site.fiverr`).
-- **Direct contact** (`freelance.direct`): your reply-time promise, the three budget ranges (in the currency you quote in), and `site.whatsapp` if you want a WhatsApp link (empty hides it).
-- **Screenshots**: MyHelper Lanka, Africa Travel & Life, POS. Easiest: add each as a project in `/studio` (section "Freelance") with its screenshot; once any exist they replace the hand-written list. This is also the one check the design gate still fails on this page (no pictures).
-- **POS stack** (`[Stack used for the POS]`).
-- Check the service and "how to hire me" wording.
-
-## Lab (`/lab`)
-- **Three.js experiments**: two titles, one line each, and the live canvases.
-- **Side project screenshots and GitHub links**: ProAssignment, Geekspot.
-- Logo images are your v1 mockups (first image of each brand, compressed to WebP in `public/lab/`). Morgij's first image is mostly blank; pick a better one if you like.
+- **Fiverr profile URL** (`site.fiverr` in `lib/content.ts`): set from `"#"` to your public profile URL; the Fiverr hero action, direct-contact link, and footer link reappear automatically.
+- **WhatsApp number** (`site.whatsapp` in `lib/content.ts`): left empty (hidden); set in international format without `+` only if you want your number public.
+- **Bank marketing metrics** (`bank` in `lib/content.ts`): send precision, recall, F1, and ROC AUC per model (and which model was picked) if you want the comparison table back instead of the pipeline step list.
+- **Budget ranges and reply time** (`freelance.direct.budgets` and `freelance.direct.reply`): confirm `"I reply within one working day."` and `"Under $300"` .. `"Over $3,000"` suit your pricing.
+- **Missing screenshots**:
+  - **Custom POS with inventory** (`public/freelance/pos.png`): no screenshot found on disk; row currently renders text-only.
+  - **Africa Travel & Life** (`public/freelance/africa-travel.jpg`): `https://africa-travel-demo.vercel.app` currently returns Vercel `503: DEPLOYMENT_PAUSED`, so the screenshot was skipped. Resume the deployment (or supply an image) and re-run `node scripts/shoot.mjs`.
+- **Public repo / report links** (`redteam.link`, `warehouse.link` in `lib/content.ts`): currently `"#"` (hides the `"Code"` link); replace if either repo or report becomes public.
+- **Three.js experiments** (`lab.experiments` in `lib/content.ts`): currently `[]` (the section stays hidden until items are added).
+- **Achievements** (`achievements` in `lib/content.ts`): hidden while empty (add the DataCamp Data Engineer certification once completed).
+- **Optional ongoing updates**:
+  - Morgij logo mockup (`public/lab/morgij.webp`): replace if you prefer another crop/mockup.
+  - `"Currently working on"` (`now` in `lib/content.ts`, or `/studio`): swap the `"Looking for"` card once an internship offer lands, and update `now.updated` monthly.
+  - **Next.js security upgrade**: decide whether to upgrade from `16.4.3`.
 
 ## Before launch
-- Push the tag from your machine: `git push origin v1-mern-final` (the cloud session was not allowed to push tags).
-- Fiverr link, CV and LinkedIn as above; then follow `DEPLOY.md`.
+
+- Push the v1 tag from your machine: `git push origin v1-mern-final`.
+- Walk through `DEPLOY.md` for Vercel environment variables, Sanity Studio, and Postgres tracking links.

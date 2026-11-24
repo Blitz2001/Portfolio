@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Tilt } from "@/components/motion/Tilt";
-import { Shot } from "@/components/Shot";
 import { ProjectRows } from "@/components/ProjectRows";
 import { WorkRow } from "@/components/WorkRow";
 import { getProjects } from "@/lib/projects";
@@ -18,9 +17,15 @@ export const metadata: Metadata = {
 
 export default async function Freelance() {
   const projects = await getProjects("freelance");
+  const onFiverr = site.fiverr !== "#";
   return (
     <>
-      <Hero title={freelance.title} lead={freelance.lead} action={{ href: site.fiverr, label: "Hire me on Fiverr" }} secondary={{ href: "#direct", label: "Contact me directly" }} />
+      <Hero
+        title={freelance.title}
+        lead={freelance.lead}
+        action={onFiverr ? { href: site.fiverr, label: "Hire me on Fiverr" } : { href: "#direct", label: "Contact me directly" }}
+        secondary={onFiverr ? { href: "#direct", label: "Contact me directly" } : undefined}
+      />
 
       <section className="frame pb-[clamp(80px,10vw,160px)]">
         <div className="mb-8 flex flex-wrap items-baseline justify-between gap-4">
@@ -70,7 +75,16 @@ export default async function Freelance() {
         ) : (
           freelance.work.map((w) => (
             <WorkRow key={w.title} title={w.title} body={w.text} meta={w.meta}>
-              <Shot label={w.image} />
+              {w.image && (
+                <Image
+                  src={w.image.src}
+                  alt={w.image.alt}
+                  width={w.image.width}
+                  height={w.image.height}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="aspect-[16/10] w-full rounded-[28px] object-cover object-top"
+                />
+              )}
             </WorkRow>
           ))
         )}
@@ -100,11 +114,13 @@ export default async function Freelance() {
       </section>
 
       <Contact title="Tell me about your project.">
-        <li>
-          <a href={site.fiverr} className="ink-link">
-            Fiverr
-          </a>
-        </li>
+        {onFiverr && (
+          <li>
+            <a href={site.fiverr} className="ink-link">
+              Fiverr
+            </a>
+          </li>
+        )}
       </Contact>
     </>
   );

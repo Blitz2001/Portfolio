@@ -75,12 +75,14 @@ export function DirectContact() {
             </a>
           </div>
         )}
-        <div className="grid gap-3">
-          <p className="font-semibold">Prefer a marketplace?</p>
-          <a href={site.fiverr} className="ink-link justify-self-start text-lead">
-            Hire me on Fiverr
-          </a>
-        </div>
+        {site.fiverr !== "#" && (
+          <div className="grid gap-3">
+            <p className="font-semibold">Prefer a marketplace?</p>
+            <a href={site.fiverr} className="ink-link justify-self-start text-lead">
+              Hire me on Fiverr
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

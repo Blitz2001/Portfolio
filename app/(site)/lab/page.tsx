@@ -11,7 +11,7 @@ import { lab } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Lab",
-  description: "Logo and brand work, Three.js experiments and side projects.",
+  description: "Logo and brand work and side projects.",
 };
 
 const label = (slug: string) => slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -45,18 +45,20 @@ export default async function Lab() {
         </ul>
       </section>
 
-      <section className="frame section-gap bg-sand-2">
-        <h2 data-reveal className="mb-10 text-section md:mb-18">3D experiments</h2>
-        <div className="grid gap-6 md:grid-cols-2 md:gap-10">
-          {lab.experiments.map((e) => (
-            <div key={e.title}>
-              <Shot label={`${e.title}: live Three.js canvas`} className="bg-sand" />
-              <h3 className="mt-5 text-title">{e.title}</h3>
-              <p className="mt-2">{e.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {lab.experiments.length > 0 && (
+        <section className="frame section-gap bg-sand-2">
+          <h2 data-reveal className="mb-10 text-section md:mb-18">3D experiments</h2>
+          <div className="grid gap-6 md:grid-cols-2 md:gap-10">
+            {lab.experiments.map((e) => (
+              <div key={e.title}>
+                <Shot label={`${e.title}: live Three.js canvas`} className="bg-sand" />
+                <h3 className="mt-5 text-title">{e.title}</h3>
+                <p className="mt-2">{e.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="frame section-gap">
         <h2 data-reveal className="mb-10 text-section md:mb-18">Side projects</h2>
@@ -65,7 +67,16 @@ export default async function Lab() {
         ) : (
           lab.projects.map((p) => (
             <WorkRow key={p.title} title={p.title} body={p.text} meta={p.meta} link={p.link}>
-              <Shot label={`[Screenshot: ${p.title}]`} />
+              {p.image && (
+                <Image
+                  src={p.image.src}
+                  alt={p.image.alt}
+                  width={p.image.width}
+                  height={p.image.height}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="aspect-[16/10] w-full rounded-[28px] object-cover object-top"
+                />
+              )}
             </WorkRow>
           ))
         )}

@@ -18,10 +18,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e6dbc7" },
-    { media: "(prefers-color-scheme: dark)", color: "#081133" },
-  ],
+  themeColor: "#e6dbc7",
 };
 
 // Runs before first paint so a saved theme never flashes the other one.
@@ -35,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
-        <Analytics />
+        {process.env.GITHUB_PAGES !== "true" && <Analytics />}
       </body>
     </html>
   );

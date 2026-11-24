@@ -21,7 +21,7 @@ export async function getGithubActivity(user: string): Promise<RepoActivity[] | 
         Accept: "application/vnd.github+json",
         ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
       },
-      next: { revalidate: 3600 },
+      ...(process.env.GITHUB_PAGES === "true" ? {} : { next: { revalidate: 3600 } }),
     });
     if (!res.ok) return null;
     const repos = (await res.json()) as ApiRepo[];

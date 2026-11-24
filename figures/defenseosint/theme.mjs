@@ -23,7 +23,6 @@ export const COBALT_CSS = `
 }
 /* Cobalt night: the same figure in sand ink on blue-black, for the site's dark theme. */
 ${night(':root[data-theme="dark"] .iso.cobalt')}
-@media (prefers-color-scheme: dark){${night(':root:not([data-theme="light"]) .iso.cobalt')}}
 .iso.cobalt .iso-face-text{font-weight:800;letter-spacing:.03em}
 .iso.cobalt .station{cursor:pointer;outline:none}
 .iso.cobalt .station .iso-edge{transition:stroke-width .2s}

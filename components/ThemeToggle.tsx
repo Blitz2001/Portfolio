@@ -4,22 +4,13 @@ import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
-const current = (): Theme => {
-  const set = document.documentElement.dataset.theme;
-  if (set === "dark" || set === "light") return set;
-  return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-};
+const current = (): Theme => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
 
-// Follows both the saved choice (the data-theme attribute) and the system setting.
+// Follows the saved choice (the data-theme attribute); defaults to light.
 function subscribe(update: () => void) {
-  const media = matchMedia("(prefers-color-scheme: dark)");
   const observer = new MutationObserver(update);
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  media.addEventListener("change", update);
-  return () => {
-    observer.disconnect();
-    media.removeEventListener("change", update);
-  };
+  return () => observer.disconnect();
 }
 
 // Light/dark switch. The new theme opens as a circle from the button where View Transitions exist.

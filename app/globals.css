@@ -16,21 +16,15 @@
 /* Cobalt night: the same two inks swapped onto a blue-black ground. Every component uses these four
    tokens, so each section inverts with no per-component work (the cobalt contact field becomes sand). */
 @layer theme {
+  :root {
+    color-scheme: light;
+  }
   :root[data-theme="dark"] {
     --color-sand: #081133;
     --color-sand-2: #0f1c4b;
     --color-cobalt: #ebe1cc;
     --color-cobalt-soft: #a3b0d8;
     color-scheme: dark;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --color-sand: #081133;
-      --color-sand-2: #0f1c4b;
-      --color-cobalt: #ebe1cc;
-      --color-cobalt-soft: #a3b0d8;
-      color-scheme: dark;
-    }
   }
 }
 
@@ -300,6 +294,16 @@ h2[data-reveal] {
   }
 }
 
+/* Tab panel arrival fade (stripped under reduced motion). */
+.tab-panel {
+  animation: tab-in 150ms var(--ease-out);
+}
+@keyframes tab-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* On the cobalt section the focus ring turns sand so it stays visible. */
 .bg-cobalt :focus-visible {
   outline-color: var(--color-sand);
@@ -309,6 +313,7 @@ h2[data-reveal] {
 @media (prefers-reduced-motion: reduce) {
   .mask-word,
   .page-enter,
+  .tab-panel,
   .wordmark,
   .live-dot::after,
   ::view-transition-new(root) {

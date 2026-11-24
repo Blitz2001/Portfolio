@@ -100,20 +100,28 @@ export function mountFigure(stage, F, { onReadout = () => {}, onSelect = () => {
 
   const polar = (r, a) => [Math.cos(rad(a)) * r, Math.sin(rad(a)) * r];
 
-  let frame = 0, last = 0, t = 0, visible = false;
+  let frame = 0, last = 0, t = 0, visible = false, rangeEnd = null, rangeSpeed = 1;
   function tick(now) {
     const dt = last ? Math.min((now - last) / 1000, 1 / 20) : 0;
     last = now;
+    if (rangeEnd !== null) {
+      t = Math.min(rangeEnd, t + dt * rangeSpeed);
+      draw(pose(t));
+      frame = t < rangeEnd && visible && !still.matches ? requestAnimationFrame(tick) : 0;
+      return;
+    }
     t = (t + dt) % LOOP;
     draw(pose(t));
     frame = visible && !still.matches ? requestAnimationFrame(tick) : 0;
   }
   const run = () => {
     if (still.matches) {
-      draw(pose(LOOP - 0.01));
+      cancelAnimationFrame(frame);
+      frame = 0;
+      draw(pose(rangeEnd ?? LOOP - 0.01));
       return;
     }
-    if (!frame && visible) {
+    if (!frame && visible && (rangeEnd === null || t < rangeEnd)) {
       last = 0;
       frame = requestAnimationFrame(tick);
     }
@@ -127,9 +135,35 @@ export function mountFigure(stage, F, { onReadout = () => {}, onSelect = () => {
 
   // Stations are buttons: click or Enter picks the one the panel below describes.
   const stations = [...svg.querySelectorAll("[data-station]")];
-  const select = (id) => {
+  const highlight = (id) => {
     stations.forEach((el) => el.toggleAttribute("data-selected", el.dataset.station === id));
+  };
+  const select = (id) => {
+    highlight(id);
     onSelect(id);
+  };
+  const playRange = (fromIdx, toIdx) => {
+    const i0 = Math.max(0, Math.min(steps.length - 1, fromIdx));
+    const i1 = Math.max(i0, Math.min(steps.length - 1, toIdx));
+    t = steps[i0].start;
+    rangeEnd = steps[i1].start + steps[i1].length;
+    rangeSpeed = i1 > i0 ? 2.8 : 1;
+    if (still.matches) {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      draw(pose(rangeEnd));
+      return;
+    }
+    draw(pose(t));
+    if (visible && !frame) {
+      last = 0;
+      frame = requestAnimationFrame(tick);
+    }
+  };
+  const playLoop = () => {
+    rangeEnd = null;
+    rangeSpeed = 1;
+    run();
   };
   const onClick = (event) => {
     const el = event.target.closest?.("[data-station]");
@@ -148,6 +182,9 @@ export function mountFigure(stage, F, { onReadout = () => {}, onSelect = () => {
   draw(pose(0));
   return {
     select,
+    highlight,
+    playRange,
+    playLoop,
     destroy() {
       cancelAnimationFrame(frame);
       io.disconnect();

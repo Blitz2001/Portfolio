@@ -12,4 +12,10 @@ export function mountFigure(
   stage: HTMLElement,
   figure: FigureData,
   options?: { onReadout?: (text: string) => void; onSelect?: (id: string) => void },
-): { select(id: string): void; destroy(): void };
+): {
+  select(id: string): void;
+  highlight(id: string): void;
+  playRange(fromIdx: number, toIdx: number): void;
+  playLoop(): void;
+  destroy(): void;
+};

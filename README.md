@@ -18,6 +18,7 @@ npm run dev
 Copy lives in `lib/content.ts`; open placeholders are listed in `PLACEHOLDERS.md`.
 
 - **Projects:** Sanity Studio at `/studio` (schema in `sanity/schemaTypes`). Without Sanity env vars the pages use `lib/content.ts`.
-- **Fig 1:** `node figures/defenseosint/build.mjs` regenerates the DefenseOSINT figure (see `figures/defenseosint/README.md`).
+- **How DefenseOSINT works:** the scroll story in `components/story/`, with copy in `lib/content.ts` (`story`) and real extractor output in `lib/entity-sample.ts` (raw: `docs/entity-extractor-sample.json`). The pinned picture is the isometric switchboard.
+- `node figures/defenseosint/build.mjs` regenerates that switchboard (`components/defenseosint/`) and the still for READMEs and LinkedIn (`figures/defenseosint/out/`).
 - **Tracking links:** `/?ref=company` is logged to Postgres; `/admin` lists visits (Basic auth, `ADMIN_PASSWORD`).
 - **Launch:** `DEPLOY.md`. Environment variables: `.env.example`.

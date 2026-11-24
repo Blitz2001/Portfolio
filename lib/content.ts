@@ -19,11 +19,24 @@ export type NowItem = { status: string; title: string; detail: string; since?: s
 export const now = {
   title: "Currently working on",
   lead: "What has my attention this month, plus what I last pushed to GitHub.",
-  updated: "[Month 2026]",
+  updated: "November 2026",
   items: [
-    { status: "Building", title: "[Project you are building now]", detail: "[One sentence: what it does and what is new about it.]", since: "[Month]" },
-    { status: "Learning", title: "[Course, paper or skill]", detail: "[One sentence: why, and what you will build with it.]" },
-    { status: "Looking for", title: "An AI or data science internship", detail: "[From which month, full or part time, on site or remote.]" },
+    {
+      status: "Building",
+      title: "Jarvis v1, a voice assistant for my own work",
+      detail: "Press a hotkey and speak: local rules handle quick actions, Gemini does the reading, and Claude only gets the coding. A learning mode makes me write the important parts myself.",
+      since: "Nov 2026",
+    },
+    {
+      status: "Learning",
+      title: "Decision theory and the value of information",
+      detail: "For my research role: a policy that decides whether a drone should ask its operator, look again or hedge, by weighing expected loss.",
+    },
+    {
+      status: "Looking for",
+      title: "An AI or data science internship",
+      detail: "Open now and able to start quickly: full or part time, on site in Colombo or remote. I learn fastest on real data with a team that ships.",
+    },
   ] satisfies NowItem[],
 };
 
@@ -32,22 +45,22 @@ export type TimelineEntry = { when: string; title: string; where: string; detail
 /** About → "Path so far", newest first. */
 export const timeline: TimelineEntry[] = [
   {
-    when: "[Year]",
+    when: "2026",
     title: "Entity Extractor and responsible-AI assessment",
     where: "DefenseOSINT, team of four",
     detail: "Built the spaCy-based entity and relation extraction service, then red-teamed the whole system: 16 test cases, 6 vulnerabilities found.",
   },
   {
-    when: "[Year] – now",
+    when: "2026 – now",
     title: "Freelance developer",
     where: "Fiverr and direct clients",
     detail: "Flutter apps and a React admin for MyHelper Lanka, a WordPress and Stripe site for Africa Travel & Life, a POS with inventory.",
   },
   {
-    when: "[Start year] – 2027",
+    when: "2023 – 2027",
     title: "BSc (Hons) in IT, specialising in Data Science",
     where: "SLIIT, Colombo",
-    detail: "GPA 3.54. [Modules or a project you want to name.]",
+    detail: "GPA 3.54. Modules include Machine Learning & Optimization Methods, Data Warehousing & Business Intelligence, and Information Retrieval & Web Analytics.",
   },
 ];
 
@@ -60,53 +73,75 @@ export const hero = {
   lead: "Data science undergraduate at SLIIT, looking for an AI or data science internship. On DefenseOSINT I built the service that pulls people, organisations and the links between them out of raw evidence, then red-teamed the whole system.",
 };
 
-export type Stage = { id: string; name: string; text: string; tech: string; mine?: boolean };
+export type StoryNode = "gateway" | "planner" | "collector" | "entity" | "analyst" | "critic";
+export type StoryStep = {
+  id: string;
+  node: StoryNode;
+  eyebrow: string;        // service name, shown under the heading with the tech line
+  heading: string;
+  text: string;
+  detail: string;         // small muted technical line
+  trace: string;          // real line from the Planner's trace (figures/defenseosint/model.mjs TRACE)
+  mine?: boolean;
+};
 
-// Source: DefenseOSINT handover guide and viva companion.
-export const pipeline = {
-  title: "DefenseOSINT, as a switchboard",
-  caption: "Six services that talk over A2A, turning a plain-language question into a cited intelligence brief. Only the Planner dispatches and only the Planner remembers. When the Critic rejects a brief its flag goes up, and the Planner sends one targeted follow-up round instead of starting over. The animation replays a real investigation trace.",
-  hint: "Click a station",
+// Source: DefenseOSINT handover guide and viva companion (same facts as figures/defenseosint/model.mjs).
+export const story = {
+  title: "How DefenseOSINT works",
+  lead: "Six services turn a plain-language question into a cited intelligence brief. Scroll to follow one real investigation.",
+  caption: "The trace lines are from a real run. Only the Planner dispatches and only the Planner remembers.",
   repo: "https://github.com/SanujaRubasinghe/DefenseOSINT",
-  stages: [
+  steps: [
     {
-      id: "gateway",
-      name: "Gateway",
-      text: "The front door. Authenticates each request before it reaches any agent.",
-      tech: "Python",
+      id: "ask", node: "gateway", eyebrow: "Gateway",
+      heading: "A question comes in",
+      text: "An analyst asks a question in plain language. The Gateway checks who is asking before any agent sees it.",
+      detail: "Python · FastAPI · JWT",
+      trace: "gateway · objective in",
     },
     {
-      id: "planner",
-      name: "Planner",
-      text: "Splits the question into research tasks, calls every other agent, and is the only service that remembers anything. It stops on an iteration, call and time budget.",
-      tech: "Python · qwen2.5:3b on Ollama",
+      id: "plan", node: "planner", eyebrow: "Planner",
+      heading: "The Planner breaks it into tasks",
+      text: "It splits the question into research tasks and calls every other service. It is the only part that remembers anything, and it stops when it runs out of rounds, calls or time.",
+      detail: "Python · qwen2.5:3b on Ollama",
+      trace: "planner-agent · plan_created · 4 tasks",
     },
     {
-      id: "collector",
-      name: "Collector",
-      text: "Runs the searches across web, news and image sources. Every record it returns carries its source, URL and retrieval time.",
-      tech: "Python",
+      id: "collect", node: "collector", eyebrow: "Collector",
+      heading: "The Collector gathers sources",
+      text: "It searches web, news and image sources. Every record it returns keeps its source, link and the time it was found.",
+      detail: "Python · DuckDuckGo search, RSS, BeautifulSoup, Shodan",
+      trace: "collector-agent · collect · ok (412 ms)",
     },
     {
-      id: "entity",
-      name: "Entity Extractor",
-      text: "Finds the people, organisations, places and events in every document, and the relations between them. “The Sri Lanka Air Force’s” and “Sri Lanka Air Force” become one entity, and confidence grows with independent sources, not repetition.",
-      tech: "Python · spaCy · coreferee · qwen2.5:7b retype pass",
-      mine: true,
+      id: "extract", node: "entity", eyebrow: "Entity Extractor", mine: true,
+      heading: "My part: who and what is involved",
+      text: "The Entity Extractor reads every document and pulls out the people, organisations, places and events, and the links between them. The same name written different ways becomes one entity, and independent sources count for more than repetition.",
+      detail: "Python · spaCy · coreferee · qwen2.5:7b retype pass",
+      trace: "entity-agent · extract · ok (95 ms)",
     },
     {
-      id: "analyst",
-      name: "Analyst",
-      text: "Writes the brief and cites evidence for every claim. A citation that isn’t in the evidence is removed in code, not by asking the model nicely.",
-      tech: "Python · gpt-4o-mini",
+      id: "brief", node: "analyst", eyebrow: "Analyst",
+      heading: "The Analyst writes a cited brief",
+      text: "Every claim has to point to evidence. A citation that isn’t in the evidence is removed by code, not by asking the model nicely.",
+      detail: "Python · gpt-4o-mini",
+      trace: "analyst-agent · synthesize · ok (120 ms)",
     },
     {
-      id: "critic",
-      name: "Critic",
-      text: "Checks the brief for missing citations and contradictions. Each finding comes with search queries the Planner turns into follow-up tasks.",
-      tech: "Python · qwen2.5:3b on Ollama",
+      id: "check", node: "critic", eyebrow: "Critic",
+      heading: "The Critic pushes back",
+      text: "It checks the brief for missing citations and contradictions. This time it rejects the brief, and says what to search for next.",
+      detail: "Python · qwen2.5:3b on Ollama",
+      trace: "critic-agent · assess · brief rejected (88 ms)",
     },
-  ] satisfies Stage[],
+    {
+      id: "retry", node: "critic", eyebrow: "Planner → Critic",
+      heading: "One targeted round, then it passes",
+      text: "Instead of starting over, the Planner turns the Critic’s notes into one follow-up task. The new brief passes with every claim cited.",
+      detail: "1 follow-up round · citation coverage 100%",
+      trace: "critic-agent · assess · passed (84 ms)",
+    },
+  ] satisfies StoryStep[],
 };
 
 /** `interval` is a 95% Wilson interval and the observed rate, in percent: [low, high, observed]. */
@@ -123,7 +158,7 @@ export const redteam = {
     { value: 3, label: "rated high" },
   ],
   meta: "Individual project · Python test harness, Wilson intervals",
-  link: "#", // [Link to the report or harness, if public]
+  link: "#", // no public report yet; "#" hides the Code link
   caption: "Selected tests: attacks that succeeded, out of runs",
   columns: ["Test", "Succeeded", "95% interval", "Result"],
   rows: [
@@ -137,32 +172,29 @@ export const redteam = {
 
 export const warehouse = {
   title: "H&M retail data warehouse",
-  body: "A Kimball star schema built on the H&M Kaggle dataset, millions of transactions. Four SSIS packages load it, including an accumulating-snapshot fact for fulfilment. An SSAS cube and four Power BI reports sit on top.",
+  body: "A Kimball star schema on the H&M Kaggle dataset, millions of transactions. Four SSIS packages load it, with SCD Type 2 customers and accumulating-snapshot columns that time each order’s fulfilment from a separate, simulated orders database. An SSAS cube and four Power BI reports sit on top.",
   meta: "Individual project · SQL Server, SSIS, SSAS, Power BI",
-  link: "#", // [GitHub link for the warehouse project]
+  link: "#", // no public repo; "#" hides the Code link
   tables: {
-    article: ["article_key", "product_type_name", "colour_group_name", "department_name"],
-    customer: ["customer_key", "club_member_status", "age", "valid_from · valid_to"],
-    sales: ["date_key", "article_key", "customer_key", "sales_channel_id", "price"],
-    date: ["date_key", "week · month", "season"],
-    // [Confirm the real fulfilment snapshot columns]
-    fulfilment: ["ordered_date_key", "shipped_date_key", "delivered_date_key", "days_to_deliver"],
+    article: ["ArticleSK", "index_name › product_group_name", "product_type_name", "colour_group_name", "department_name"],
+    customer: ["CustomerSK", "club_member_status · age", "postal_code", "StartDate · EndDate"],
+    sales: ["DateKey", "ArticleSK", "CustomerSK", "sales_channel_id", "price", "accm_txn_create_time", "accm_txn_complete_time", "txn_process_time_hours"],
+    date: ["DateKey", "CalendarYear · Quarter · Month", "Week"],
+    orders: ["TransactionID", "accm_txn_complete_time"],
   },
 };
 
 export const bank = {
   title: "Bank marketing prediction",
   body: "Which clients will open a term deposit? I led the correlation and confound analysis, outlier treatment and encoding, trained the XGBoost model, and built the comparison table the team used to pick the final model.",
-  meta: "Team project · Python, pandas, scikit-learn, XGBoost",
-  link: "#", // [GitHub link for the bank marketing project]
-  caption: "Model comparison, held-out test set",
-  columns: ["Model", "Precision", "Recall", "F1", "ROC AUC"],
-  // [Fill in real models and metrics; highlight the model you picked]
-  rows: [
-    { cells: ["[Logistic regression]", "[0.00]", "[0.00]", "[0.00]", "[0.00]"] },
-    { cells: ["[Random forest]", "[0.00]", "[0.00]", "[0.00]", "[0.00]"] },
-    { cells: ["XGBoost", "[0.00]", "[0.00]", "[0.00]", "[0.00]"], highlight: true },
-  ] satisfies TableRow[],
+  meta: "Team project · Python, pandas, scikit-learn, XGBoost, UCI Bank Marketing dataset",
+  link: "#", // no public repo; "#" hides the Code link
+  steps: [
+    "Correlation and confound analysis across all features",
+    "Outlier treatment and categorical encoding",
+    "Trained and tuned the XGBoost model",
+    "Built the model comparison table the team used to pick the final model",
+  ],
 };
 
 export const about = {
@@ -174,6 +206,11 @@ export const about = {
     { group: "Software", items: "React, Node, Docker, Supabase" },
   ],
 };
+
+export type WorkImage = { src: string; alt: string; width: number; height: number };
+export type FreelanceWork = { title: string; text: string; meta: string; image?: WorkImage };
+export type LabExperiment = { title: string; text: string };
+export type LabProject = { title: string; text: string; meta: string; link: string; image?: WorkImage };
 
 export const freelance = {
   title: "Apps for small businesses.",
@@ -189,31 +226,34 @@ export const freelance = {
       title: "MyHelper Lanka",
       text: "Flutter apps for customers and helpers, a React and Vite admin panel, and Supabase behind all of it.",
       meta: "Flutter, React, Vite, Supabase",
-      image: "[Screenshot: MyHelper Lanka app and admin]",
+      image: {
+        src: "/freelance/myhelper-lanka.png",
+        alt: "MyHelper Lanka home page design: book a verified helper for an elderly parent",
+        width: 1482,
+        height: 1600,
+      },
     },
     {
       title: "Africa Travel & Life",
       text: "A custom WordPress theme with Stripe Checkout and six regional prices for each trip.",
       meta: "WordPress, PHP, Stripe",
-      image: "[Screenshot: Africa Travel & Life site]",
     },
     {
       title: "Custom POS with inventory",
       text: "A point-of-sale system with stock tracking, rated five stars by the client.",
-      meta: "[Stack used for the POS]",
-      image: "[Screenshot: POS screen]",
+      meta: "React, Supabase",
     },
-  ],
+  ] satisfies FreelanceWork[],
   direct: {
     title: "Or work with me directly",
     lead: "Skip the marketplace: tell me what you need and it opens as an email to me, ready to send.",
-    reply: "[I reply within one working day.]",
+    reply: "I reply within one working day.",
     types: ["Mobile app", "Web app or admin panel", "Website with payments", "Point of sale", "Something else"],
     timelines: ["As soon as possible", "Within a month", "In 1–3 months", "Not sure yet"],
-    budgets: ["Not sure yet", "[Budget range 1]", "[Budget range 2]", "[Budget range 3]"],
+    budgets: ["Not sure yet", "Under $300", "$300 – $1,000", "$1,000 – $3,000", "Over $3,000"],
   },
   steps: [
-    "Message me on Fiverr, or directly with the form below.",
+    "Message me directly with the form below, or on Fiverr.",
     "I reply with a scope, a price and a timeline.",
     "You see progress as I build, and we launch together.",
   ],
@@ -221,7 +261,7 @@ export const freelance = {
 
 export const lab = {
   title: "Made when nobody asked.",
-  lead: "Logos and brand work, 3D experiments in the browser, and the side projects where I learned to build full stack.",
+  lead: "Logos and brand work, and the side projects where I learned to build full stack.",
   logos: [
     "aydin-murphy",
     "code-bel",
@@ -235,22 +275,31 @@ export const lab = {
     "viewdoo-studios",
     "wavix",
   ],
-  experiments: [
-    { title: "[Three.js experiment one]", text: "[One line on what it does]" },
-    { title: "[Three.js experiment two]", text: "[One line on what it does]" },
-  ],
+  experiments: [] as LabExperiment[],
   projects: [
     {
       title: "ProAssignment",
       text: "An assignment marketplace with real-time chat and more than fifty API endpoints.",
       meta: "React, Node, Express, MongoDB, Socket.io",
-      link: "#", // [GitHub link]
+      link: "https://github.com/Blitz2001/ProAssignment",
+      image: {
+        src: "/lab/proassignment.jpg",
+        alt: "ProAssignment assignment marketplace web app",
+        width: 1440,
+        height: 900,
+      },
     },
     {
       title: "Geekspot",
       text: "An e-commerce store with Cloudinary image hosting and PDF invoices from PDFKit.",
-      meta: "React, Node, MongoDB, Cloudinary, PDFKit",
-      link: "#", // [GitHub link]
+      meta: "React, Vite, Tailwind, Node, Cloudinary, PDFKit",
+      link: "https://github.com/Blitz2001/geekspot",
+      image: {
+        src: "/lab/geekspot.jpg",
+        alt: "Geekspot tech e-commerce store web app",
+        width: 1440,
+        height: 900,
+      },
     },
-  ],
+  ] satisfies LabProject[],
 };

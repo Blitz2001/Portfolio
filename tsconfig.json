@@ -37,7 +37,10 @@
   ],
   "exclude": [
     "node_modules",
+    "out",
     ".claude",
-    "design"
+    "design",
+    "dist",
+    "v2-data-science"
   ]
 }

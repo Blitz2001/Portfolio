@@ -13,9 +13,8 @@ const COMMANDS: Command[] = [
   { group: "Pages", label: "Hire me", keywords: "home recruiter ai data science internship", run: to("/") },
   { group: "Pages", label: "Freelance", keywords: "client services fiverr", run: to("/freelance") },
   { group: "Pages", label: "Lab", keywords: "logos design three.js side projects", run: to("/lab") },
-  { group: "On this site", label: "DefenseOSINT figure", keywords: "pipeline agents planner critic switchboard", run: to("/#fig") },
+  { group: "On this site", label: "How DefenseOSINT works", keywords: "pipeline agents planner critic switchboard entity extractor spacy confidence canonical id", run: to("/#fig") },
   { group: "On this site", label: "Currently working on", keywords: "now github latest", run: to("/#now") },
-  { group: "On this site", label: "Inside my part: try the Entity Extractor", keywords: "entity extractor spacy confidence canonical id", run: to("/#inside") },
   { group: "On this site", label: "Red-teaming DefenseOSINT", keywords: "responsible ai wilson tests vulnerabilities", run: to("/#red-teaming-defenseosint") },
   { group: "On this site", label: "H&M retail data warehouse", keywords: "star schema kimball ssis ssas power bi", run: to("/#hm-retail-data-warehouse") },
   { group: "On this site", label: "Bank marketing prediction", keywords: "xgboost model comparison", run: to("/#bank-marketing-prediction") },
@@ -37,7 +36,7 @@ const COMMANDS: Command[] = [
     keywords: "dark mode theme",
     run: () => {
       const root = document.documentElement;
-      const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      const dark = root.dataset.theme === "dark";
       root.dataset.theme = dark ? "light" : "dark";
       try {
         localStorage.setItem("theme", root.dataset.theme);
