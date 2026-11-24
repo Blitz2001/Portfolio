@@ -1,0 +1,43 @@
+import { site } from "@/lib/content";
+import { FitName } from "./FitName";
+import { LocalTime } from "./LocalTime";
+import { Magnetic } from "./motion/Magnetic";
+
+export function Contact({ title, children }: { title: string; children?: React.ReactNode }) {
+  return (
+    <section id="contact" className="frame section-gap overflow-hidden bg-cobalt text-sand">
+      <h2 data-reveal className="mb-10 max-w-[20ch] text-section md:mb-18">
+        {title}
+      </h2>
+      <ul data-reveal style={{ "--i": 1 } as React.CSSProperties} className="flex flex-wrap items-center gap-x-10 gap-y-4 text-lead">
+        <li>
+          <a href={`mailto:${site.email}`} className="ink-link">
+            {site.email}
+          </a>
+        </li>
+        <li>
+          <a href={site.github} className="ink-link">
+            {site.githubLabel}
+          </a>
+        </li>
+        <li>
+          <a href={site.linkedin} className="ink-link">
+            LinkedIn
+          </a>
+        </li>
+        {children}
+        <li>
+          <Magnetic>
+            <a href={site.cv} className="btn btn-inverse">
+              Download CV
+            </a>
+          </Magnetic>
+        </li>
+      </ul>
+      <LocalTime />
+      <div>
+        <FitName>{site.name}</FitName>
+      </div>
+    </section>
+  );
+}

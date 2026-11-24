@@ -1,0 +1,37 @@
+{
+  "_about": "Real output of DefenseOSINT's Entity Extractor (services/entity-agent/entity_agent/extract.py, extract_entities(), rule-based pass without the LLM retype or coreferee). Input: four fictional sentences from the hand-labelled set evaluation/datasets/nlp/documents.jsonl, each sent as a separate source. Generated 2026-11-23.",
+  "evaluation": {
+    "_about": "evaluation/results/nlp-20260917-201313.json: 23 hand-labelled documents (8 fictional + 15 news headlines).",
+    "documents": 23,
+    "entities": { "precision": 0.821, "recall": 0.807, "f1": 0.814 },
+    "entities_by_type": {
+      "PERSON": { "precision": 0.688, "recall": 0.786, "f1": 0.733 },
+      "ORG": { "precision": 0.8, "recall": 0.75, "f1": 0.774 },
+      "LOCATION": { "precision": 0.92, "recall": 0.852, "f1": 0.885 }
+    },
+    "relations": { "precision": 1.0, "recall": 0.714, "f1": 0.833 }
+  },
+  "input": {
+    "nlp-001": "Jane Smith works for Acme Corporation, which is based in Riga.",
+    "nlp-002": "Acme Corporation announced a new office in Riga last year.",
+    "nlp-003": "Maria Kalnina founded Nexus Trading Group in 2015.",
+    "nlp-005": "Blackridge Holdings acquired Nexus Trading Group in March."
+  },
+  "output": {
+    "investigation_id": "portfolio-sample",
+    "entities": [
+      { "canonical_id": "org_a153f2d2547c", "name": "Acme Corporation", "type": "ORG", "aliases": [], "confidence": 0.79, "evidence_ids": ["nlp-001", "nlp-002"] },
+      { "canonical_id": "org_3ea9e45f359c", "name": "Nexus Trading Group", "type": "ORG", "aliases": [], "confidence": 0.79, "evidence_ids": ["nlp-003", "nlp-005"] },
+      { "canonical_id": "loc_d7f966e97624", "name": "Riga", "type": "LOCATION", "aliases": [], "confidence": 0.79, "evidence_ids": ["nlp-001", "nlp-002"] },
+      { "canonical_id": "org_5ec0cc12a96b", "name": "Blackridge Holdings", "type": "ORG", "aliases": [], "confidence": 0.62, "evidence_ids": ["nlp-005"] },
+      { "canonical_id": "per_4db45f6d5c9e", "name": "Jane Smith", "type": "PERSON", "aliases": [], "confidence": 0.62, "evidence_ids": ["nlp-001"] },
+      { "canonical_id": "per_a4869c2f411f", "name": "Maria Kalnina", "type": "PERSON", "aliases": [], "confidence": 0.62, "evidence_ids": ["nlp-003"] }
+    ],
+    "relationships": [
+      { "subject_id": "org_a153f2d2547c", "predicate": "headquartered_in", "object_id": "loc_d7f966e97624", "confidence": 0.55, "evidence_ids": ["nlp-001"] },
+      { "subject_id": "per_4db45f6d5c9e", "predicate": "works_for", "object_id": "org_a153f2d2547c", "confidence": 0.55, "evidence_ids": ["nlp-001"] },
+      { "subject_id": "per_a4869c2f411f", "predicate": "founded", "object_id": "org_3ea9e45f359c", "confidence": 0.55, "evidence_ids": ["nlp-003"] },
+      { "subject_id": "org_5ec0cc12a96b", "predicate": "acquired", "object_id": "org_3ea9e45f359c", "confidence": 0.55, "evidence_ids": ["nlp-005"] }
+    ]
+  }
+}
